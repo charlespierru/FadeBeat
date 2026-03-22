@@ -2,7 +2,7 @@
 
 **Outil d'entraînement rythmique avec atténuation progressive par beat.**
 
-FadeBeat est un métronome avancé conçu pour travailler l'**intériorisation du rythme** : il permet de faire disparaître progressivement un ou plusieurs beats, forçant le musicien à maintenir la pulsation intérieurement sans s'appuyer sur le son externe.
+FadeBeat est un métronome avancé conçu pour travailler l'**intériorisation du rythme**, inspiré par [la vidéo de Jamie Anderson "The Free Rhythm Tool That'll Transform Your Groove!"](https://www.youtube.com/watch?v=WVDtPucGMt8). Il permet de faire disparaître progressivement un ou plusieurs beats, forçant le musicien à maintenir la pulsation intérieurement sans s'appuyer sur le son externe.
 
 > Application en **un seul fichier HTML** — aucune installation, aucun serveur, aucun fichier audio externe.
 
