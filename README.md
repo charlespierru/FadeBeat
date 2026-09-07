@@ -159,4 +159,7 @@ FadeBeat.html   ← application complète (HTML + CSS + JS)
 
 ## Licence
 
-Libre d'utilisation et de modification.
+**Licence MIT** — voir le fichier [`LICENSE`](LICENSE).
+
+Libre d'utilisation, de modification et de redistribution, y compris à titre
+commercial, à condition de conserver la mention d'auteur. Fourni sans garantie.
