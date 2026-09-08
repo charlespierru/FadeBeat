@@ -72,6 +72,41 @@
     </p>
   </div>
 
+
+  <!-- Accélération -->
+  <div id="acc-panel" class="w-full max-w-xl bg-gray-900/70 rounded-2xl p-5 border border-gray-800/70 flex flex-col gap-4">
+    <div class="flex items-center justify-between gap-4">
+      <span class="text-xs text-gray-500 tracking-widest uppercase">Accélération</span>
+      <button id="acc-toggle" type="button" aria-pressed="false"
+              class="px-4 py-1.5 rounded-full text-sm font-semibold border bg-gray-900 border-gray-700 text-gray-500 hover:text-gray-200 hover:border-gray-500 transition-all">
+        Activer l'accélération
+      </button>
+    </div>
+    <div id="acc-fields" class="grid grid-cols-2 sm:grid-cols-4 gap-3 opacity-50 transition-opacity">
+      <label class="flex flex-col gap-1">
+        <span class="text-xs text-gray-500">Départ (BPM)</span>
+        <input type="number" id="acc-from" min="40" max="300" value="100"
+               class="bg-gray-800 text-center text-white font-bold rounded-xl py-1.5 text-lg border border-gray-700 focus:outline-none focus:border-emerald-500 transition-colors">
+      </label>
+      <label class="flex flex-col gap-1">
+        <span class="text-xs text-gray-500">Arrivée (BPM)</span>
+        <input type="number" id="acc-to" min="40" max="300" value="140"
+               class="bg-gray-800 text-center text-white font-bold rounded-xl py-1.5 text-lg border border-gray-700 focus:outline-none focus:border-emerald-500 transition-colors">
+      </label>
+      <label class="flex flex-col gap-1">
+        <span class="text-xs text-gray-500">Toutes les (mesures)</span>
+        <input type="number" id="acc-m" min="1" max="32" value="4"
+               class="bg-gray-800 text-center text-white font-bold rounded-xl py-1.5 text-lg border border-gray-700 focus:outline-none focus:border-emerald-500 transition-colors">
+      </label>
+      <label class="flex flex-col gap-1">
+        <span class="text-xs text-gray-500">Pas (BPM)</span>
+        <input type="number" id="acc-n" min="1" max="60" value="5"
+               class="bg-gray-800 text-center text-white font-bold rounded-xl py-1.5 text-lg border border-gray-700 focus:outline-none focus:border-emerald-500 transition-colors">
+      </label>
+    </div>
+    <p id="acc-info" class="text-xs text-gray-600 text-right">Mode ÉTEINT : le tempo est réglé à la main.</p>
+  </div>
+
   <!-- Beat controls -->
   <div class="w-full max-w-xl">
     <p class="text-xs text-gray-600 tracking-widest text-center mb-3 uppercase">Atténuation par Beat</p>
@@ -116,6 +151,8 @@ let snd   = 'wood';
 // BS[i] = { fd: fadeDuration (mesures), fs: fadeStart (mesures) }
 const BS = [{fd:0,fs:0},{fd:0,fs:0},{fd:0,fs:0},{fd:0,fs:0}];
 let playing = false;
+// Accélération : tempo de départ → tempo d'arrivée, par paliers de n BPM toutes les m mesures
+const ACC = {on:false, from:100, to:140, m:4, n:5};
 
 // ── AUDIO ─────────────────────────────────────────────────────────────────────
 let AC, MG;
@@ -227,19 +264,35 @@ function beatVol(bi, meas) {
   return 1 - e / fd;
 }
 
+// ── ACCÉLÉRATION ──────────────────────────────────────────────────────────────
+// Tempo à la mesure `meas` (0 = première) : palier k = floor(meas/m),
+// on avance de k*n BPM depuis le départ, sans jamais dépasser l'arrivée.
+function accTempoAt(meas) {
+  const {from, to, m, n} = ACC;
+  const k = Math.floor(meas / m);
+  const dist = Math.min(Math.abs(to - from), k * n);
+  return from + Math.sign(to - from) * dist;
+}
+// Mesures restantes avant le prochain palier (0 si l'arrivée est atteinte)
+function accNextIn(meas) {
+  if (accTempoAt(meas) === ACC.to) return 0;
+  return ACC.m - (meas % ACC.m);
+}
+
 // ── SCHEDULER ─────────────────────────────────────────────────────────────────
 const LOOKAHEAD = 0.10; // seconds
 const SCHED_MS  = 25;   // ms
 
 let schedTimer, rafId;
 let nxt = 0, bi = 0, meas = 0;
-let Q = []; // visual event queue: {bi, t, v}
+let Q = []; // visual event queue: {bi, t, v, tempo, meas}
 
 function scheduler() {
   while (nxt < AC.currentTime + LOOKAHEAD) {
+    if (ACC.on && bi === 0) tempo = accTempoAt(meas);
     const v = beatVol(bi, meas);
     if (v > 4e-4) playSound(bi, nxt, v);
-    Q.push({bi, t: nxt, v});
+    Q.push({bi, t: nxt, v, tempo, meas});
     nxt += 60 / tempo;
     bi = (bi + 1) % 4;
     if (bi === 0) meas++;
@@ -252,7 +305,8 @@ function frame() {
   while (Q.length && Q[0].t <= now) {
     const e = Q.shift();
     flash(e.bi, e.v);
-    if (e.bi === 0) document.getElementById('meas-n').textContent = meas;
+    if (e.bi === 0) document.getElementById('meas-n').textContent = e.meas;
+    if (ACC.on) { showTempo(e.tempo); accInfo(e.meas); } // rafraîchi à chaque beat
   }
   rafId = requestAnimationFrame(frame);
 }
@@ -260,6 +314,7 @@ function frame() {
 function startMetronome() {
   initAudio();
   playing = true; bi = 0; meas = 0; Q = [];
+  if (ACC.on) { tempo = ACC.from; showTempo(tempo); accInfo(0); }
   nxt = AC.currentTime + 0.05;
   schedTimer = setInterval(scheduler, SCHED_MS);
   rafId = requestAnimationFrame(frame);
@@ -273,6 +328,7 @@ function stopMetronome() {
   resetCircles();
   setPlayUI(false);
   document.getElementById('meas-n').textContent = '—';
+  if (ACC.on) { tempo = ACC.from; showTempo(tempo); accInfo(null); }
 }
 
 // ── VISUALS ───────────────────────────────────────────────────────────────────
@@ -429,16 +485,84 @@ function resetAtt() {
 }
 
 // ── TEMPO ─────────────────────────────────────────────────────────────────────
+// Reflète un tempo dans le curseur, le champ et la durée de mesure (ne change pas `tempo`)
+function showTempo(v) {
+  const sl = document.getElementById('s-bpm'), nb = document.getElementById('n-bpm');
+  sl.value = v; nb.value = v; fill(sl);
+  document.getElementById('meas-s').textContent = (240/v).toFixed(2);
+}
+
 function setupTempo() {
   const sl = document.getElementById('s-bpm'), nb = document.getElementById('n-bpm');
   fill(sl);
-  const sync = (v) => {
-    tempo = v; sl.value = v; nb.value = v; fill(sl);
-    document.getElementById('meas-s').textContent = (240/tempo).toFixed(2);
-  };
-  sl.oninput = () => sync(+sl.value);
-  nb.oninput = () => { const v = +nb.value; if (v>=40&&v<=300) sync(v); };
+  const sync = (v) => { tempo = v; showTempo(v); };
+  sl.oninput = () => { if (!ACC.on) sync(+sl.value); };
+  nb.oninput = () => { const v = +nb.value; if (!ACC.on && v>=40&&v<=300) sync(v); };
   nb.onblur  = () => { nb.value = tempo; };
+}
+
+// ── ACCÉLÉRATION : UI ─────────────────────────────────────────────────────────
+function clampInput(el) {
+  let v = Math.round(+el.value);
+  if (isNaN(v)) v = +el.min;
+  v = Math.min(+el.max, Math.max(+el.min, v));
+  el.value = v;
+  return v;
+}
+
+// Texte d'état : meas = mesure courante en lecture, null = à l'arrêt
+function accInfo(meas) {
+  const info = document.getElementById('acc-info');
+  if (!ACC.on) { info.textContent = 'Mode ÉTEINT : le tempo est réglé à la main.'; return; }
+  const sens = ACC.to >= ACC.from ? 'monte' : 'descend';
+  if (meas === null) {
+    info.textContent = ACC.to === ACC.from
+      ? `Mode ALLUMÉ : départ et arrivée à ${ACC.from}, le tempo ne bougera pas.`
+      : `Mode ALLUMÉ : départ ${ACC.from}, ${sens} de ${ACC.n} BPM toutes les ${ACC.m} mesure${ACC.m>1?'s':''} jusqu'à ${ACC.to}.`;
+    return;
+  }
+  const left = accNextIn(meas);
+  info.textContent = left === 0
+    ? `Mode ALLUMÉ : tempo d'arrivée ${ACC.to} atteint, il se maintient.`
+    : `Mode ALLUMÉ : tempo ${accTempoAt(meas)}, prochain palier dans ${left} mesure${left>1?'s':''}.`;
+}
+
+function setAccUI() {
+  const btn = document.getElementById('acc-toggle');
+  btn.setAttribute('aria-pressed', ACC.on ? 'true' : 'false');
+  // Le bouton porte l'ORDRE (ce qu'un appui va faire), jamais l'état
+  btn.textContent = ACC.on ? "Désactiver l'accélération" : "Activer l'accélération";
+  btn.className = ACC.on
+    ? 'px-4 py-1.5 rounded-full text-sm font-semibold border bg-emerald-700 border-emerald-500 text-white transition-all'
+    : 'px-4 py-1.5 rounded-full text-sm font-semibold border bg-gray-900 border-gray-700 text-gray-500 hover:text-gray-200 hover:border-gray-500 transition-all';
+  document.getElementById('acc-fields').classList.toggle('opacity-50', !ACC.on);
+  const sl = document.getElementById('s-bpm'), nb = document.getElementById('n-bpm');
+  sl.disabled = ACC.on; nb.disabled = ACC.on;
+  sl.style.opacity = nb.style.opacity = ACC.on ? '0.45' : '';
+  accInfo(null);
+}
+
+function setupAcc() {
+  const f = document.getElementById('acc-from'), t = document.getElementById('acc-to');
+  const m = document.getElementById('acc-m'),    n = document.getElementById('acc-n');
+  const read = () => {
+    ACC.from = clampInput(f); ACC.to = clampInput(t);
+    ACC.m = clampInput(m);    ACC.n = clampInput(n);
+    if (ACC.on && !playing) { tempo = ACC.from; showTempo(tempo); }
+    accInfo(playing ? meas : null);
+  };
+  [f,t,m,n].forEach(el => { el.onchange = read; });
+  document.getElementById('acc-toggle').onclick = () => {
+    ACC.on = !ACC.on;
+    read();
+    if (ACC.on) { tempo = ACC.from; showTempo(tempo); }
+    setAccUI();
+    if (playing) { stopMetronome(); startMetronome(); }
+    // Mode coupé : l'écran doit refléter le tempo réel du scheduler (qui a pu
+    // franchir un palier 100 ms avant l'affichage)
+    if (!ACC.on) showTempo(tempo);
+  };
+  setAccUI();
 }
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
@@ -446,12 +570,15 @@ buildBeats();
 buildSounds();
 buildBeatCtrl();
 setupTempo();
+setupAcc();
 
 document.getElementById('btn-play').onclick  = () => playing ? stopMetronome() : startMetronome();
 document.getElementById('btn-reset').onclick = resetAtt;
 
 document.addEventListener('keydown', e => {
-  if (e.code === 'Space' && e.target.tagName !== 'INPUT') {
+  // Espace = play/stop seulement si le focus n'est sur aucun bouton ni champ :
+  // sur un bouton, Espace doit faire ce que le bouton annonce
+  if (e.code === 'Space' && !['INPUT','BUTTON','SELECT','TEXTAREA'].includes(e.target.tagName)) {
     e.preventDefault();
     playing ? stopMetronome() : startMetronome();
   }

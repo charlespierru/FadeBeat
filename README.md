@@ -62,6 +62,27 @@ Choisissez parmi 6 sons générés entièrement par Web Audio API :
 
 ---
 
+### Accélération
+
+Panneau sous le tempo. Le bouton dit ce qu'il va faire : **Activer l'accélération** quand le mode est éteint, **Désactiver l'accélération** quand il est allumé ; la ligne d'état sous les champs dit toujours « Mode ÉTEINT » ou « Mode ALLUMÉ ». Mode allumé, le tempo n'est plus réglé à la main : il est piloté par quatre valeurs.
+
+| Champ | Plage | Rôle |
+|-------|-------|------|
+| **Départ** | 40 → 300 BPM | Tempo au lancement |
+| **Arrivée** | 40 → 300 BPM | Tempo final, où le métronome se stabilise |
+| **Toutes les** | 1 → 32 mesures | Longueur d'un palier |
+| **Pas** | 1 → 60 BPM | De combien le tempo change à chaque palier |
+
+Déroulement : le métronome démarre au tempo de départ ; toutes les *m* mesures il change de *n* BPM, au premier temps de la mesure ; le dernier palier est écrêté sur le tempo d'arrivée, puis le tempo reste fixe tant qu'on joue. Si l'arrivée est plus basse que le départ, c'est un ralentissement. La ligne d'état sous les champs indique le tempo courant et le nombre de mesures avant le prochain palier. Stop remet le tempo de départ.
+
+*Exemple : départ 100, arrivée 130, toutes les 2 mesures, pas 10 → les deux premières mesures à 100 (affichées « Mesure 0 » et « Mesure 1 »), les deux suivantes à 110, puis 120, puis 130.*
+
+Quand le mode est actif, le curseur et le champ Tempo sont verrouillés et ne font qu'afficher le tempo courant. Basculer le mode pendant la lecture redémarre le métronome à la mesure 0.
+
+Les atténuations par beat continuent de compter en mesures, quel que soit le tempo courant.
+
+---
+
 ### Atténuation par beat
 
 C'est le cœur de l'application. Chaque beat dispose de **deux paramètres indépendants** :
