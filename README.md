@@ -20,6 +20,53 @@ C'est tout.
 
 ---
 
+## Langues
+
+FadeBeat est **bilingue français / anglais**, dans le même et unique fichier
+`FadeBeat.html` : un dictionnaire `I18N = { fr, en }` dans le script, les textes
+statiques marqués `data-i18n="clé"`, les textes dynamiques passés par `t(clé, params)`.
+Aucun fichier de traduction à part, aucun chargement extérieur.
+
+**Quelle langue s'affiche**, dans cet ordre :
+
+1. `?lang=fr` ou `?lang=en` dans l'adresse — prioritaire, validé contre ces deux
+   valeurs seulement, jamais injecté dans la page. Sert aux captures et au partage.
+2. le choix mémorisé par le navigateur (`localStorage`, clé `fadebeat-lang`) ;
+3. sinon `navigator.language` : commence par `fr` → français, sinon anglais.
+
+`<html lang>` et le titre de l'onglet suivent la langue affichée.
+
+**La pastille de langue**, à droite de la pastille Notice, porte l'**ordre** et jamais
+l'état : elle affiche **EN** quand l'application est en français (un clic la passe en
+anglais) et **FR** quand elle est en anglais. Le changement est immédiat, sans
+rechargement : **il ne réécrit que des textes** — ni le tempo, ni le compteur de
+mesures, ni la lecture en cours ne bougent.
+
+La pastille Notice ouvre la notice de la **même langue** : `notice/fr.html` ou
+`notice/en.html`.
+
+| Français | English |
+|----------|---------|
+| Timbre | Sound |
+| Métronome · Cloche · Woodblock · Hi-hat · Kick doux · Sinus pur | Metronome · Bell · Woodblock · Hi-hat · Soft kick · Pure sine |
+| 1 mesure = … s · Mesure … | 1 bar = … s · Bar … |
+| Accélération | Acceleration |
+| Activer / Désactiver l'accélération | Turn acceleration on / off |
+| Départ · Arrivée · Toutes les (mesures) · Pas | Start · Target · Every (bars) · Step |
+| Mode ÉTEINT / ALLUMÉ | Mode OFF / ON |
+| Atténuation par Beat | Fade per Beat |
+| Durée fade · Début après · mesures | Fade length · Start after · bars |
+| ↺ Reset atténuations | ↺ Reset fades |
+| Espace : play / stop | Space: play / stop |
+
+> **Règle de travail** : tout texte visible à l'écran doit exister dans les **deux**
+> langues du dictionnaire, et les captures des deux notices doivent être régénérées.
+> `node scripts/verif-notice.mjs` balaie tout le texte de l'appli — texte visible,
+> attributs (`title`, `aria-label`, `placeholder`, `alt`) et titre de l'onglet — dans
+> les deux langues, dans cinq états, et refuse le moindre mot de l'autre langue.
+
+---
+
 ## Interface
 
 ### Indicateurs de beat
@@ -172,9 +219,11 @@ Tous les beats s'estompent lentement sur 16 mesures après 8 mesures de plein vo
 
 ## Notice d'utilisation
 
-La pastille **« Notice · Manual »** (icône de livre ouvert) en haut de l'application,
-centrée sous le sous-titre, ouvre la notice dans un nouvel onglet : sommaire à gauche,
-chapitres et captures à droite, en français (`notice/fr.html`) et en anglais (`notice/en.html`).
+La pastille **« Notice »** (« Manual » en anglais, icône de livre ouvert) en haut de
+l'application, centrée sous le sous-titre à gauche de la pastille de langue, ouvre la
+notice dans un nouvel onglet : sommaire à gauche, chapitres et captures à droite. Elle
+ouvre toujours la notice de la langue affichée — `notice/fr.html` ou `notice/en.html`.
+Chaque notice compte **17 figures**, prises dans sa propre langue.
 
 La notice fait partie de chaque fonctionnalité : un commit qui modifie `FadeBeat.html`
 sans modifier les deux notices est refusé par le hook `.githooks/pre-commit`.
@@ -189,9 +238,20 @@ Le hook ne s'exécute que sur `git commit` : `git merge`, `git rebase`,
 `git cherry-pick` et `git commit --no-verify` le contournent sans rien dire — mettre
 à jour les deux notices reste alors une convention à respecter à la main.
 
-Les captures se régénèrent avec `node scripts/captures.mjs` (Chrome headless), la
-notice se vérifie avec `node scripts/verif-notice.mjs <dossier de sortie>`. Les deux
-scripts prennent puppeteer dans `/mnt/data/Charles/DevPerso/tonik/node_modules/` ;
+Les captures se régénèrent avec `node scripts/captures.mjs` (Chrome headless) — les
+deux langues d'un coup, ou `node scripts/captures.mjs fr` / `… en` pour une seule.
+Elles atterrissent dans `notice/figs/fr/` et `notice/figs/en/`, sous les **mêmes
+17 noms de fichiers**. L'appli est chargée avec `?lang=<langue>`, donc la capture ne
+dépend ni de la langue du navigateur ni d'un choix mémorisé.
+
+La vérification se fait avec `node scripts/verif-notice.mjs <dossier de sortie>` :
+détection de la langue, balayage de tout le texte de l'appli (visible, attributs et
+titre de l'onglet) dans les deux langues et cinq états — avec un contrôle de sabotage
+qui prouve que ce balayage sait échouer —, bascule en pleine lecture, suite de tempos
+de l'accélération, `href` de la pastille, 17 figures par notice, 400 px sans
+débordement, zéro erreur console. Elle finit par `TOUT PASSE` ou sort en erreur.
+
+Les deux scripts prennent puppeteer dans `/mnt/data/Charles/DevPerso/tonik/node_modules/` ;
 pour un autre chemin : `PUPPETEER_MODULES=/chemin/vers/node_modules node scripts/…`.
 
 ---
@@ -199,15 +259,17 @@ pour un autre chemin : `PUPPETEER_MODULES=/chemin/vers/node_modules node scripts
 ## Fichiers
 
 ```
-FadeBeat.html          ← application complète (HTML + CSS + JS)
-notice/fr.html         ← notice en français
-notice/en.html         ← notice en anglais
-notice/figs/           ← captures d'écran de la notice
-scripts/captures.mjs   ← régénère les captures
-scripts/verif-notice.mjs ← vérification headless de la notice (FR et EN)
+FadeBeat.html          ← application complète, bilingue (HTML + CSS + JS + dictionnaire I18N)
+notice/fr.html         ← notice en français (17 figures)
+notice/en.html         ← notice en anglais (17 figures)
+notice/figs/fr/        ← captures de l'appli en français (17 fichiers)
+notice/figs/en/        ← captures de l'appli en anglais (mêmes 17 noms)
+scripts/captures.mjs   ← régénère les captures (`fr`, `en`, ou les deux)
+scripts/verif-notice.mjs ← vérification headless de l'appli et des notices (FR et EN)
 .githooks/pre-commit   ← garde-fou : FadeBeat.html ⇒ les deux notices
 tests/epreuve-garde-notice.sh ← épreuve indépendante du garde-fou
 docs/notice-plan.md    ← plan du chantier notice
+docs/bilingue-plan.md  ← plan du chantier bilingue
 ```
 
 ---

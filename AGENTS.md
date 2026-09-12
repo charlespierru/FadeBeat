@@ -17,6 +17,18 @@ Instructions pour tout agent IA sur ce dépôt. Règles globales déjà chargée
   pas de fichier annexe — sauf décision contraire explicite de Charles.
 - Toute modification s'écoute et se teste EN VRAI (timing audio) : le métronome doit
   rester exact ; validation finale par Charles à l'oreille et à l'écran.
+- **L'appli est BILINGUE (FR/EN) depuis le 2026-09-12.** Tout texte visible à l'écran
+  entre dans les DEUX langues du dictionnaire `I18N` de `FadeBeat.html` : statique →
+  `data-i18n="clé"`, dynamique → `t(clé, params)`. Jamais de texte écrit en dur dans le
+  DOM ou dans le JS. Un texte oublié reste en français en mode EN : c'est silencieux à
+  l'écran, mais `node scripts/verif-notice.mjs` l'attrape (balayage de tout le texte
+  dans les deux langues et cinq états — texte visible, attributs `title`, `aria-label`,
+  `placeholder`, `alt`, et titre de l'onglet — contre une liste de mots-témoins, sans
+  tenir compte de la casse).
+  Pas de fichier de traduction à part : le dictionnaire vit dans le fichier unique.
+  Et toute modification de l'écran se termine par les captures RÉGÉNÉRÉES POUR LES DEUX
+  LANGUES : `node scripts/captures.mjs` (ou `… fr` / `… en`) → `notice/figs/fr/` et
+  `notice/figs/en/`, mêmes 17 noms de fichiers de part et d'autre.
 - **Notice = partie de la fonctionnalité.** Toute fonctionnalité nouvelle ou modifiée
   dans `FadeBeat.html` se termine par la mise à jour des DEUX notices, `notice/fr.html`
   et `notice/en.html` (texte + captures, `node scripts/captures.mjs` les régénère).

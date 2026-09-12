@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Titre de départ en français ; le script le remplace par celui de la langue
+       choisie (chantier #102, 2026-09-12). Même chose pour tous les textes
+       marqués data-i18n : le HTML porte le français, le dictionnaire I18N porte
+       les deux langues, et rien n'est chargé depuis un fichier extérieur. -->
   <title>FadeBeat – Entraînement Rythmique</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -45,23 +49,47 @@
   <!-- Header -->
   <div id="entete" class="text-center select-none">
     <h1 class="text-4xl font-black tracking-[0.22em] text-white">FADE<span class="text-violet-400">BEAT</span></h1>
-    <p class="text-xs text-gray-600 tracking-widest mt-1 uppercase">Entraînement Rythmique · Atténuation Progressive</p>
-    <!-- Notice (nouvel onglet). En haut depuis le 2026-09-12 (décision de Charles) :
-         elle était en bas de page, invisible sans défiler. Pastille (et non lien
-         souligné) depuis le 2026-09-12 : même famille visuelle que les boutons de
-         timbre. Texte gris-400 sur gray-900/60 = 7,5:1, au-dessus du seuil 4.5:1. -->
-    <a id="lnk-notice" href="notice/fr.html" target="_blank" rel="noopener"
-       title="Notice d'utilisation (nouvel onglet) · User manual (new tab)"
-       aria-label="Notice d'utilisation (nouvel onglet) · User manual (new tab)"
-       class="inline-flex items-center gap-2 mt-3 px-4 py-1.5 rounded-full border border-gray-800 bg-gray-900/60 text-gray-400 text-xs tracking-widest uppercase transition-all hover:text-violet-200 hover:border-violet-500 hover:shadow-[0_0_14px_2px_rgba(167,139,250,0.35)]">
-      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
-           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M12 6.5C10.5 5.2 8.6 4.6 6.5 4.6c-1 0-2 .13-2.9.4v13c.9-.27 1.9-.4 2.9-.4 2.1 0 4 .6 5.5 1.9"/>
-        <path d="M12 6.5c1.5-1.3 3.4-1.9 5.5-1.9 1 0 2 .13 2.9.4v13c-.9-.27-1.9-.4-2.9-.4-2.1 0-4 .6-5.5 1.9"/>
-        <path d="M12 6.5v13"/>
-      </svg>
-      <span>Notice · Manual</span>
-    </a>
+    <p class="text-xs text-gray-600 tracking-widest mt-1 uppercase" data-i18n="subtitle">Entraînement Rythmique · Atténuation Progressive</p>
+    <!-- Les deux pastilles, côte à côte et centrées (chantier #102, 2026-09-12).
+         Même famille visuelle : mêmes bordure, fond, taille de texte et halo au
+         survol. flex-wrap pour qu'à 400 px elles passent à la ligne plutôt que
+         de déborder. -->
+    <div id="pastilles" class="flex flex-wrap items-center justify-center gap-2 mt-3">
+      <!-- Notice (nouvel onglet). En haut depuis le 2026-09-12 (décision de Charles) :
+           elle était en bas de page, invisible sans défiler. Pastille (et non lien
+           souligné) depuis le 2026-09-12 : même famille visuelle que les boutons de
+           timbre. Texte gris-400 sur gray-900/60 = 7,5:1, au-dessus du seuil 4.5:1.
+           href, title et aria-label sont réécrits par applyLang() : la pastille
+           ouvre la notice de la langue affichée. -->
+      <a id="lnk-notice" href="notice/fr.html" target="_blank" rel="noopener"
+         title="Notice d'utilisation (nouvel onglet)"
+         aria-label="Notice d'utilisation (nouvel onglet)"
+         class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gray-800 bg-gray-900/60 text-gray-400 text-xs tracking-widest uppercase transition-all hover:text-violet-200 hover:border-violet-500 hover:shadow-[0_0_14px_2px_rgba(167,139,250,0.35)]">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 6.5C10.5 5.2 8.6 4.6 6.5 4.6c-1 0-2 .13-2.9.4v13c.9-.27 1.9-.4 2.9-.4 2.1 0 4 .6 5.5 1.9"/>
+          <path d="M12 6.5c1.5-1.3 3.4-1.9 5.5-1.9 1 0 2 .13 2.9.4v13c-.9-.27-1.9-.4-2.9-.4-2.1 0-4 .6-5.5 1.9"/>
+          <path d="M12 6.5v13"/>
+        </svg>
+        <span id="lnk-notice-lbl">Notice</span>
+      </a>
+      <!-- Pastille de langue. Elle porte l'ORDRE, jamais l'état : « EN » quand
+           l'appli est en français (= passer en anglais), « FR » quand elle est en
+           anglais. Leçon du chantier #96 : « Désactivée » avait été lu comme
+           « Désactiver ». Texte et libellé écrits par applyLang(). -->
+      <button id="btn-lang" type="button" lang="en"
+              title="Passer l'application en anglais"
+              aria-label="Passer l'application en anglais"
+              class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gray-800 bg-gray-900/60 text-gray-400 text-xs tracking-widest uppercase transition-all hover:text-violet-200 hover:border-violet-500 hover:shadow-[0_0_14px_2px_rgba(167,139,250,0.35)]">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M3.2 9.5h17.6M3.2 14.5h17.6"/>
+          <path d="M12 3c-2.4 2.4-3.6 5.4-3.6 9s1.2 6.6 3.6 9c2.4-2.4 3.6-5.4 3.6-9s-1.2-6.6-3.6-9z"/>
+        </svg>
+        <span id="btn-lang-lbl">EN</span>
+      </button>
+    </div>
   </div>
 
   <!-- Beat circles -->
@@ -69,22 +97,26 @@
 
   <!-- Sound selector -->
   <div class="flex flex-col items-center gap-2 w-full max-w-xl">
-    <p class="text-xs text-gray-600 tracking-widest uppercase">Timbre</p>
+    <p class="text-xs text-gray-600 tracking-widest uppercase" data-i18n="timbre">Timbre</p>
     <div id="sounds" class="flex flex-wrap gap-2 justify-center"></div>
   </div>
 
   <!-- Tempo -->
   <div class="w-full max-w-xl bg-gray-900/70 rounded-2xl p-5 border border-gray-800/70">
     <div class="flex items-center gap-4">
-      <span class="text-xs text-gray-500 tracking-widest shrink-0 uppercase">Tempo</span>
+      <span class="text-xs text-gray-500 tracking-widest shrink-0 uppercase" data-i18n="tempo">Tempo</span>
       <input type="range" id="s-bpm" class="s-bpm flex-1" min="40" max="300" step="1" value="120">
       <input type="number" id="n-bpm"
              class="w-16 bg-gray-800 text-center text-white font-bold rounded-xl py-1.5 text-xl border border-gray-700 focus:outline-none focus:border-violet-500 transition-colors"
              min="40" max="300" value="120">
-      <span class="text-xs text-gray-600 shrink-0">BPM</span>
+      <span class="text-xs text-gray-600 shrink-0" data-i18n="bpm">BPM</span>
     </div>
+    <!-- « 1 mesure = 2.00s · Mesure — » en français, « 1 bar = 2.00s · Bar — » en
+         anglais : les deux morceaux de phrase passent par le dictionnaire, les
+         deux valeurs restent dans leurs span (#meas-s, #meas-n) pour que le
+         scheduler continue d'écrire exactement au même endroit qu'avant. -->
     <p class="text-xs text-gray-700 mt-2 text-right">
-      1 mesure = <span id="meas-s">2.00</span>s &nbsp;·&nbsp; Mesure&nbsp;<span id="meas-n">—</span>
+      <span data-i18n="meas_len">1 mesure = </span><span id="meas-s">2.00</span>s &nbsp;·&nbsp; <span data-i18n="meas_no">Mesure</span>&nbsp;<span id="meas-n">—</span>
     </p>
   </div>
 
@@ -92,7 +124,7 @@
   <!-- Accélération -->
   <div id="acc-panel" class="w-full max-w-xl bg-gray-900/70 rounded-2xl p-5 border border-gray-800/70 flex flex-col gap-4">
     <div class="flex items-center justify-between gap-4">
-      <span class="text-xs text-gray-500 tracking-widest uppercase">Accélération</span>
+      <span class="text-xs text-gray-500 tracking-widest uppercase" data-i18n="acc">Accélération</span>
       <button id="acc-toggle" type="button" aria-pressed="false"
               class="px-4 py-1.5 rounded-full text-sm font-semibold border bg-gray-900 border-gray-700 text-gray-500 hover:text-gray-200 hover:border-gray-500 transition-all">
         Activer l'accélération
@@ -100,22 +132,22 @@
     </div>
     <div id="acc-fields" class="grid grid-cols-2 sm:grid-cols-4 gap-3 opacity-50 transition-opacity">
       <label class="flex flex-col gap-1">
-        <span class="text-xs text-gray-500">Départ (BPM)</span>
+        <span class="text-xs text-gray-500" data-i18n="acc_from">Départ (BPM)</span>
         <input type="number" id="acc-from" min="40" max="300" value="100"
                class="bg-gray-800 text-center text-white font-bold rounded-xl py-1.5 text-lg border border-gray-700 focus:outline-none focus:border-emerald-500 transition-colors">
       </label>
       <label class="flex flex-col gap-1">
-        <span class="text-xs text-gray-500">Arrivée (BPM)</span>
+        <span class="text-xs text-gray-500" data-i18n="acc_to">Arrivée (BPM)</span>
         <input type="number" id="acc-to" min="40" max="300" value="140"
                class="bg-gray-800 text-center text-white font-bold rounded-xl py-1.5 text-lg border border-gray-700 focus:outline-none focus:border-emerald-500 transition-colors">
       </label>
       <label class="flex flex-col gap-1">
-        <span class="text-xs text-gray-500">Toutes les (mesures)</span>
+        <span class="text-xs text-gray-500" data-i18n="acc_every">Toutes les (mesures)</span>
         <input type="number" id="acc-m" min="1" max="32" value="4"
                class="bg-gray-800 text-center text-white font-bold rounded-xl py-1.5 text-lg border border-gray-700 focus:outline-none focus:border-emerald-500 transition-colors">
       </label>
       <label class="flex flex-col gap-1">
-        <span class="text-xs text-gray-500">Pas (BPM)</span>
+        <span class="text-xs text-gray-500" data-i18n="acc_step">Pas (BPM)</span>
         <input type="number" id="acc-n" min="1" max="60" value="5"
                class="bg-gray-800 text-center text-white font-bold rounded-xl py-1.5 text-lg border border-gray-700 focus:outline-none focus:border-emerald-500 transition-colors">
       </label>
@@ -125,7 +157,7 @@
 
   <!-- Beat controls -->
   <div class="w-full max-w-xl">
-    <p class="text-xs text-gray-600 tracking-widest text-center mb-3 uppercase">Atténuation par Beat</p>
+    <p class="text-xs text-gray-600 tracking-widest text-center mb-3 uppercase" data-i18n="att">Atténuation par Beat</p>
     <div id="beat-ctrl" class="grid grid-cols-2 sm:grid-cols-4 gap-3"></div>
   </div>
 
@@ -134,15 +166,17 @@
     <button id="btn-play"
             class="flex items-center gap-3 px-10 py-4 rounded-2xl font-bold text-base text-white transition-all duration-200"
             style="background:#7c3aed;">
+      <!-- pas de data-i18n ici : setPlayUI() est le seul propriétaire de ce
+           libellé, qui dit l'ORDRE (« Play » à l'arrêt, « Stop » en lecture) -->
       <span id="play-ico">▶</span><span id="play-lbl">Play</span>
     </button>
     <button id="btn-reset"
             class="px-6 py-4 rounded-2xl font-medium text-sm text-gray-400 border border-gray-700 bg-gray-900/60 hover:bg-gray-800 transition-colors">
-      ↺ Reset atténuations
+      <span data-i18n="reset">↺ Reset atténuations</span>
     </button>
   </div>
 
-  <p class="text-xs text-gray-800">Espace : play / stop</p>
+  <p class="text-xs text-gray-800" data-i18n="space">Espace : play / stop</p>
 
 <script>
 // ── CONFIG ────────────────────────────────────────────────────────────────────
@@ -152,14 +186,143 @@ const BC = [
   {n:'3', col:'#22d3ee', glow:'rgba(34,211,238,',  bg:'rgba(8,145,178,0.10)', bdr:'#0891b2'},
   {n:'4', col:'#4ade80', glow:'rgba(74,222,128,',  bg:'rgba(5,150,105,0.10)', bdr:'#059669'},
 ];
+// `key` = clé du dictionnaire I18N ; le libellé n'est plus écrit en dur ici.
 const SOUNDS = [
-  {id:'wood', lbl:'Métronome'},
-  {id:'bell', lbl:'Cloche'},
-  {id:'wblk', lbl:'Woodblock'},
-  {id:'hhat', lbl:'Hi-hat'},
-  {id:'kick', lbl:'Kick doux'},
-  {id:'sine', lbl:'Sinus pur'},
+  {id:'wood', key:'snd_wood'},
+  {id:'bell', key:'snd_bell'},
+  {id:'wblk', key:'snd_wblk'},
+  {id:'hhat', key:'snd_hhat'},
+  {id:'kick', key:'snd_kick'},
+  {id:'sine', key:'snd_sine'},
 ];
+
+// ── LANGUE (chantier #102, 2026-09-12) ────────────────────────────────────────
+// L'appli parle français ou anglais. UN SEUL fichier : le dictionnaire vit ici,
+// pas dans un fichier de traduction à part (règle de Charles).
+// RÈGLE : tout texte visible à l'écran entre dans les DEUX langues. Un texte
+// oublié reste en français en mode EN — `scripts/verif-notice.mjs` balaie tout
+// le texte visible de l'appli dans les deux langues pour l'attraper.
+const LANGS = ['fr', 'en'];
+const LANG_KEY = 'fadebeat-lang';
+const I18N = {
+  fr: {
+    doc_title:     'FadeBeat – Entraînement Rythmique',
+    subtitle:      'Entraînement Rythmique · Atténuation Progressive',
+    notice_lbl:    'Notice',
+    notice_title:  "Notice d'utilisation (nouvel onglet)",
+    lang_lbl:      'EN',                                // langue VERS laquelle on bascule
+    lang_title:    "Passer l'application en anglais",
+    timbre:        'Timbre',
+    snd_wood:      'Métronome',
+    snd_bell:      'Cloche',
+    snd_wblk:      'Woodblock',
+    snd_hhat:      'Hi-hat',
+    snd_kick:      'Kick doux',
+    snd_sine:      'Sinus pur',
+    tempo:         'Tempo',
+    bpm:           'BPM',
+    meas_len:      '1 mesure = ',
+    meas_no:       'Mesure',
+    acc:           'Accélération',
+    acc_order_on:  "Activer l'accélération",
+    acc_order_off: "Désactiver l'accélération",
+    acc_from:      'Départ (BPM)',
+    acc_to:        'Arrivée (BPM)',
+    acc_every:     'Toutes les (mesures)',
+    acc_step:      'Pas (BPM)',
+    acc_off:       'Mode ÉTEINT : le tempo est réglé à la main.',
+    acc_flat:      'Mode ALLUMÉ : départ et arrivée à {from}, le tempo ne bougera pas.',
+    acc_plan:      "Mode ALLUMÉ : départ {from}, {dir} de {n} BPM toutes les {m} {unit} jusqu'à {to}.",
+    acc_up:        'monte',
+    acc_down:      'descend',
+    acc_reached:   "Mode ALLUMÉ : tempo d'arrivée {to} atteint, il se maintient.",
+    acc_next:      'Mode ALLUMÉ : tempo {tempo}, prochain palier dans {left} {unit}.',
+    bar_1:         'mesure',
+    bar_n:         'mesures',
+    att:           'Atténuation par Beat',
+    beat:          'Beat',
+    fade_dur:      'Durée fade',
+    fade_start:    'Début après',
+    play:          'Play',
+    stop:          'Stop',
+    reset:         '↺ Reset atténuations',
+    space:         'Espace : play / stop',
+    vol:           'VOL',
+  },
+  en: {
+    doc_title:     'FadeBeat – Rhythm Training',
+    subtitle:      'Rhythm training · Progressive fade',
+    notice_lbl:    'Manual',
+    notice_title:  'User manual (new tab)',
+    lang_lbl:      'FR',                                // langue VERS laquelle on bascule
+    lang_title:    'Switch the app to French',
+    timbre:        'Sound',
+    snd_wood:      'Metronome',
+    snd_bell:      'Bell',
+    snd_wblk:      'Woodblock',
+    snd_hhat:      'Hi-hat',
+    snd_kick:      'Soft kick',
+    snd_sine:      'Pure sine',
+    tempo:         'Tempo',
+    bpm:           'BPM',
+    meas_len:      '1 bar = ',
+    meas_no:       'Bar',
+    acc:           'Acceleration',
+    acc_order_on:  'Turn acceleration on',
+    acc_order_off: 'Turn acceleration off',
+    acc_from:      'Start (BPM)',
+    acc_to:        'Target (BPM)',
+    acc_every:     'Every (bars)',
+    acc_step:      'Step (BPM)',
+    acc_off:       'Mode OFF: the tempo is set by hand.',
+    acc_flat:      'Mode ON: start and target both {from}, the tempo will not move.',
+    acc_plan:      'Mode ON: start {from}, {dir} by {n} BPM every {m} {unit} until {to}.',
+    acc_up:        'rising',
+    acc_down:      'falling',
+    acc_reached:   'Mode ON: target tempo {to} reached, holding.',
+    acc_next:      'Mode ON: tempo {tempo}, next step in {left} {unit}.',
+    bar_1:         'bar',
+    bar_n:         'bars',
+    att:           'Fade per Beat',
+    beat:          'Beat',
+    fade_dur:      'Fade length',
+    fade_start:    'Start after',
+    play:          'Play',
+    stop:          'Stop',
+    reset:         '↺ Reset fades',
+    space:         'Space: play / stop',
+    vol:           'VOL',
+  },
+};
+
+// Langue retenue : ?lang= (prioritaire, sert aux captures et au partage, VALIDÉ
+// contre LANGS et jamais injecté dans le HTML) > choix mémorisé > navigateur.
+function pickLang() {
+  try {
+    const q = new URLSearchParams(location.search).get('lang');
+    if (LANGS.includes(q)) return q;
+  } catch (e) { /* adresse exotique : on continue */ }
+  try {
+    const s = localStorage.getItem(LANG_KEY);
+    if (LANGS.includes(s)) return s;
+  } catch (e) { /* stockage refusé (navigation privée) : on continue */ }
+  return String(navigator.language || '').toLowerCase().startsWith('fr') ? 'fr' : 'en';
+}
+let LANG = pickLang();
+
+// t('cle', {params}) — un seul point de passage pour TOUS les textes, statiques
+// comme dynamiques. Clé absente d'une langue : repli sur le français, puis sur
+// la clé elle-même (visible, donc attrapable, jamais silencieux).
+function t(k, p) {
+  let s = I18N[LANG][k];
+  if (s === undefined) s = I18N.fr[k];
+  if (s === undefined) return k;
+  if (p) for (const n of Object.keys(p)) s = s.split('{' + n + '}').join(p[n]);
+  return s;
+}
+// Pluriel des mesures : « 1 mesure » / « 2 mesures », « 1 bar » / « 2 bars ».
+const barUnit = n => t(Math.abs(n) > 1 ? 'bar_n' : 'bar_1');
+const otherLang = () => (LANG === 'fr' ? 'en' : 'fr');
 
 // ── STATE ─────────────────────────────────────────────────────────────────────
 let tempo = 120;
@@ -402,7 +565,7 @@ function resetCircles() {
 function setPlayUI(p) {
   const btn = document.getElementById('btn-play');
   document.getElementById('play-ico').textContent = p ? '■' : '▶';
-  document.getElementById('play-lbl').textContent = p ? 'Stop' : 'Play';
+  document.getElementById('play-lbl').textContent = p ? t('stop') : t('play');
   btn.style.background   = p ? '#dc2626' : '#7c3aed';
   btn.style.boxShadow    = p ? '0 0 22px 6px rgba(220,38,38,0.4)' : '';
 }
@@ -422,7 +585,7 @@ function buildBeats() {
         <div class="vol-track">
           <div id="vb${i}" class="vol-bar" style="height:100%;background:${c.col};opacity:0.35;"></div>
         </div>
-        <span class="text-gray-700" style="font-size:9px;letter-spacing:.08em">VOL</span>
+        <span class="text-gray-700" style="font-size:9px;letter-spacing:.08em" data-i18n="vol">VOL</span>
       </div>
     </div>`;
   });
@@ -434,7 +597,9 @@ function buildSounds() {
   SOUNDS.forEach(s => {
     const b = document.createElement('button');
     b.id = 'snd-'+s.id;
-    b.textContent = s.lbl;
+    // data-i18n : applyLang() réécrit le libellé à chaque changement de langue
+    b.setAttribute('data-i18n', s.key);
+    b.textContent = t(s.key);
     b.className = sndBtnClass(s.id === snd);
     b.onclick = () => selSound(s.id);
     c.appendChild(b);
@@ -467,24 +632,24 @@ function buildBeatCtrl() {
     d.className = 'bg-gray-900/70 rounded-2xl p-4 border border-gray-800/60 flex flex-col gap-4';
     d.style.cssText += `border-top:2px solid ${bc.bdr};`;
     d.innerHTML = `
-      <div class="text-center font-bold text-sm" style="color:${bc.col}">Beat ${bc.n}</div>
+      <div class="text-center font-bold text-sm" style="color:${bc.col}"><span data-i18n="beat">Beat</span> ${bc.n}</div>
       <div class="flex flex-col gap-1.5">
         <div class="flex justify-between items-center">
-          <span class="text-xs text-amber-400/70">Durée fade</span>
+          <span class="text-xs text-amber-400/70" data-i18n="fade_dur">Durée fade</span>
           <span class="text-xs font-bold text-amber-400" id="dv${i}">0</span>
         </div>
         <input type="range" class="s-dur" id="sd${i}" min="0" max="16" step="1" value="0"
                oninput="onDur(${i},this)">
-        <span class="text-right text-gray-700" style="font-size:9px">mesures</span>
+        <span class="text-right text-gray-700" style="font-size:9px" data-i18n="bar_n">mesures</span>
       </div>
       <div class="flex flex-col gap-1.5">
         <div class="flex justify-between items-center">
-          <span class="text-xs text-blue-400/70">Début après</span>
+          <span class="text-xs text-blue-400/70" data-i18n="fade_start">Début après</span>
           <span class="text-xs font-bold text-blue-400" id="sv${i}">0</span>
         </div>
         <input type="range" class="s-del" id="ss${i}" min="0" max="16" step="1" value="0"
                oninput="onDel(${i},this)">
-        <span class="text-right text-gray-700" style="font-size:9px">mesures</span>
+        <span class="text-right text-gray-700" style="font-size:9px" data-i18n="bar_n">mesures</span>
       </div>`;
     c.appendChild(d);
     setTimeout(() => { fill(document.getElementById('sd'+i)); fill(document.getElementById('ss'+i)); }, 0);
@@ -530,28 +695,35 @@ function clampInput(el) {
   return v;
 }
 
-// Texte d'état : meas = mesure courante en lecture, null = à l'arrêt
+// Texte d'état : meas = mesure courante en lecture, null = à l'arrêt.
+// Les six variantes (éteint ; allumé à l'arrêt départ=arrivée ; allumé à l'arrêt
+// qui monte ; allumé à l'arrêt qui descend ; en palier ; arrivée atteinte) passent
+// toutes par t(), pluriel des mesures compris.
 function accInfo(meas) {
   const info = document.getElementById('acc-info');
-  if (!ACC.on) { info.textContent = 'Mode ÉTEINT : le tempo est réglé à la main.'; return; }
-  const sens = ACC.to >= ACC.from ? 'monte' : 'descend';
+  if (!ACC.on) { info.textContent = t('acc_off'); return; }
   if (meas === null) {
     info.textContent = ACC.to === ACC.from
-      ? `Mode ALLUMÉ : départ et arrivée à ${ACC.from}, le tempo ne bougera pas.`
-      : `Mode ALLUMÉ : départ ${ACC.from}, ${sens} de ${ACC.n} BPM toutes les ${ACC.m} mesure${ACC.m>1?'s':''} jusqu'à ${ACC.to}.`;
+      ? t('acc_flat', {from: ACC.from})
+      : t('acc_plan', {from: ACC.from, dir: t(ACC.to >= ACC.from ? 'acc_up' : 'acc_down'),
+                       n: ACC.n, m: ACC.m, unit: barUnit(ACC.m), to: ACC.to});
     return;
   }
   const left = accNextIn(meas);
   info.textContent = left === 0
-    ? `Mode ALLUMÉ : tempo d'arrivée ${ACC.to} atteint, il se maintient.`
-    : `Mode ALLUMÉ : tempo ${accTempoAt(meas)}, prochain palier dans ${left} mesure${left>1?'s':''}.`;
+    ? t('acc_reached', {to: ACC.to})
+    : t('acc_next', {tempo: accTempoAt(meas), left, unit: barUnit(left)});
+}
+
+// Le bouton porte l'ORDRE (ce qu'un appui va faire), jamais l'état
+function accToggleLabel() {
+  document.getElementById('acc-toggle').textContent = ACC.on ? t('acc_order_off') : t('acc_order_on');
 }
 
 function setAccUI() {
   const btn = document.getElementById('acc-toggle');
   btn.setAttribute('aria-pressed', ACC.on ? 'true' : 'false');
-  // Le bouton porte l'ORDRE (ce qu'un appui va faire), jamais l'état
-  btn.textContent = ACC.on ? "Désactiver l'accélération" : "Activer l'accélération";
+  accToggleLabel();
   btn.className = ACC.on
     ? 'px-4 py-1.5 rounded-full text-sm font-semibold border bg-emerald-700 border-emerald-500 text-white transition-all'
     : 'px-4 py-1.5 rounded-full text-sm font-semibold border bg-gray-900 border-gray-700 text-gray-500 hover:text-gray-200 hover:border-gray-500 transition-all';
@@ -585,15 +757,55 @@ function setupAcc() {
   setAccUI();
 }
 
+// ── LANGUE : APPLICATION À L'ÉCRAN ────────────────────────────────────────────
+// Réécrit TOUS les textes visibles, et RIEN d'autre. Ne touche ni `tempo`, ni
+// `meas`, ni `playing`, ni la file Q, ni les minuteries du scheduler : changer de
+// langue en pleine lecture ne doit pas faire sauter un seul beat (critère 3 du
+// plan, mesuré le 2026-09-12).
+function applyLang() {
+  document.documentElement.lang = LANG;
+  document.title = t('doc_title');
+
+  // Tous les éléments statiques marqués data-i18n (en-tête, panneaux, cartes de
+  // beat construites en JS, boutons de timbre)
+  document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+
+  // Pastille Notice : libellé, infobulle et notice de la MÊME langue
+  const n = document.getElementById('lnk-notice');
+  document.getElementById('lnk-notice-lbl').textContent = t('notice_lbl');
+  n.setAttribute('href', 'notice/' + LANG + '.html');
+  n.setAttribute('title', t('notice_title'));
+  n.setAttribute('aria-label', t('notice_title'));
+
+  // Pastille de langue : elle porte l'ORDRE — la langue vers laquelle on bascule
+  const b = document.getElementById('btn-lang');
+  document.getElementById('btn-lang-lbl').textContent = t('lang_lbl');
+  b.setAttribute('lang', otherLang());     // « EN »/« FR » se lit dans la langue cible
+  b.setAttribute('title', t('lang_title'));
+  b.setAttribute('aria-label', t('lang_title'));
+
+  // Textes dynamiques : libellé Play/Stop selon l'état réel, ligne d'état de
+  // l'accélération selon l'état réel (à l'arrêt ou à la mesure en cours)
+  setPlayUI(playing);
+  accToggleLabel();
+  accInfo(ACC.on && playing ? meas : null);
+}
+
 // ── INIT ──────────────────────────────────────────────────────────────────────
 buildBeats();
 buildSounds();
 buildBeatCtrl();
 setupTempo();
 setupAcc();
+applyLang();
 
 document.getElementById('btn-play').onclick  = () => playing ? stopMetronome() : startMetronome();
 document.getElementById('btn-reset').onclick = resetAtt;
+document.getElementById('btn-lang').onclick  = () => {
+  LANG = otherLang();
+  try { localStorage.setItem(LANG_KEY, LANG); } catch (e) { /* stockage refusé : la langue tient pour cette page */ }
+  applyLang();   // textes seulement : la lecture continue, tempo et mesure intacts
+};
 
 document.addEventListener('keydown', e => {
   // Espace = play/stop seulement si le focus n'est sur aucun bouton ni champ :

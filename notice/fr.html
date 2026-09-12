@@ -82,13 +82,31 @@
       <p>Vérifiée dans Chrome ; conçue pour marcher aussi dans Firefox, Edge et Safari (dans Firefox, les curseurs
       peuvent être moins colorés). Elle a besoin d'internet pour sa mise en forme
       (la bibliothèque Tailwind est chargée en ligne) mais aucun son n'est téléchargé : tout est fabriqué par le navigateur.</p>
-      <p>Cette notice s'ouvre depuis l'application elle-même : la pastille <strong>« Notice · Manual »</strong>,
+      <h3>Ouvrir la notice</h3>
+      <p>Cette notice s'ouvre depuis l'application elle-même : la pastille <strong>« Notice »</strong>,
       marquée d'un petit livre ouvert, est en haut, centrée sous le sous-titre. Elle s'allume en violet au survol.
-      Un clic ouvre la notice dans un nouvel onglet, l'application reste où elle en est.</p>
+      Un clic ouvre la notice dans un nouvel onglet, l'application reste où elle en est. Elle ouvre toujours
+      la notice de la <strong>langue affichée</strong> : <code>notice/fr.html</code> en français,
+      <code>notice/en.html</code> en anglais.</p>
       <figure>
-        <img src="figs/13-lien-notice.png" alt="Le haut de l'application : le titre FADEBEAT, le sous-titre, et sous eux la pastille « Notice · Manual » avec son icône de livre ouvert">
-        <figcaption>Fig. 1 — La pastille « Notice · Manual », en haut de l'application.</figcaption>
+        <img src="figs/fr/13-lien-notice.png" alt="Le haut de l'application : le titre FADEBEAT, le sous-titre, et sous eux les deux pastilles « Notice » et « EN »">
+        <figcaption>Fig. 1 — Les deux pastilles, en haut de l'application : « Notice » et la pastille de langue.</figcaption>
       </figure>
+      <h3>Changer la langue de l'appli</h3>
+      <p>FadeBeat parle <strong>français</strong> ou <strong>anglais</strong>. Au premier chargement, elle suit la
+      langue de ton navigateur : français s'il est en français, anglais dans tous les autres cas.</p>
+      <p>Pour passer dans l'autre langue, clique la <strong>pastille de droite</strong>, marquée d'un globe.
+      Comme tous les boutons de FadeBeat, elle porte <strong>l'ordre, jamais l'état</strong> : elle affiche
+      <strong>« EN »</strong> quand l'application est en français — un clic la fait passer en anglais — et
+      <strong>« FR »</strong> quand elle est en anglais. Le changement est immédiat, sans rechargement :
+      <strong>une lecture en cours n'est pas interrompue</strong>, ni le tempo ni le compteur de mesures ne bougent.</p>
+      <figure>
+        <img src="figs/fr/14-langue.png" alt="Les deux pastilles côte à côte : « Notice » à gauche avec son livre ouvert, « EN » à droite avec son globe">
+        <figcaption>Fig. 2 — La pastille de langue, à droite de la pastille « Notice ». Ici l'application est en français : la pastille propose de passer en anglais.</figcaption>
+      </figure>
+      <p>Ton choix est <strong>mémorisé</strong> par le navigateur : au prochain chargement, FadeBeat revient dans
+      cette langue. On peut aussi l'imposer dans l'adresse, avec <code>?lang=fr</code> ou <code>?lang=en</code> —
+      pratique pour partager un lien dans une langue précise.</p>
       <div class="note">
         <p><strong>La mesure est toujours à 4 temps.</strong> FadeBeat ne propose pas d'autre chiffrage.</p>
       </div>
@@ -99,7 +117,9 @@
       <h2>L'écran d'un coup d'œil</h2>
       <p>Tout tient sur une seule page, de haut en bas :</p>
       <ol>
-        <li>Le <strong>titre</strong>, le sous-titre et, juste dessous, la <strong>pastille « Notice · Manual »</strong> qui ouvre cette notice dans un nouvel onglet.</li>
+        <li>Le <strong>titre</strong>, le sous-titre et, juste dessous, deux pastilles : <strong>« Notice »</strong>,
+        qui ouvre cette notice dans un nouvel onglet, et la <strong>pastille de langue</strong> (un globe et
+        <strong>« EN »</strong>), qui fait passer l'application en anglais — voir le chapitre 1.</li>
         <li>Les <strong>quatre cercles</strong>, un par temps, avec leur barre de volume.</li>
         <li>Le choix du <strong>timbre</strong> (six sons).</li>
         <li>Le <strong>tempo</strong>, curseur et champ en BPM.</li>
@@ -108,8 +128,8 @@
         <li>Les boutons <strong>Play</strong> et <strong>Reset atténuations</strong>, puis le rappel « Espace : play / stop ».</li>
       </ol>
       <figure>
-        <img src="figs/01-ecran.png" alt="L'écran complet de FadeBeat à l'arrêt, réglages par défaut">
-        <figcaption>Fig. 2 — L'écran complet, à l'arrêt, avec les réglages de départ : tempo 120, timbre Métronome, aucune atténuation.</figcaption>
+        <img src="figs/fr/01-ecran.png" alt="L'écran complet de FadeBeat à l'arrêt, réglages par défaut">
+        <figcaption>Fig. 3 — L'écran complet, à l'arrêt, avec les réglages de départ : tempo 120, timbre Métronome, aucune atténuation.</figcaption>
       </figure>
     </section>
 
@@ -122,8 +142,8 @@
       <span class="b3 font-bold">3</span> cyan ;
       <span class="b4 font-bold">4</span> vert.</p>
       <figure>
-        <img src="figs/02-cercles.png" alt="Les quatre cercles à l'arrêt, barres de volume pleines">
-        <figcaption>Fig. 3 — À l'arrêt : les quatre cercles éteints, les barres de volume pleines mais pâles.</figcaption>
+        <img src="figs/fr/02-cercles.png" alt="Les quatre cercles à l'arrêt, barres de volume pleines">
+        <figcaption>Fig. 4 — À l'arrêt : les quatre cercles éteints, les barres de volume pleines mais pâles.</figcaption>
       </figure>
       <p>Pendant la lecture, le cercle <strong>pulse et s'illumine</strong> à l'instant exact de son temps.
       Plus le temps est fort, plus le halo est large. Un temps devenu silencieux ne s'illumine plus : le cercle
@@ -131,8 +151,8 @@
       <p>La <strong>barre verticale</strong> sous chaque cercle montre le volume auquel ce temps vient de sonner.
       Quand une atténuation est en cours, la barre descend mesure après mesure jusqu'à s'éteindre.</p>
       <figure>
-        <img src="figs/12-cercles-lecture.png" alt="Les cercles en lecture, le temps 1 en train de s'atténuer, sa barre à mi-hauteur">
-        <figcaption>Fig. 4 — En lecture, avec une atténuation sur le temps 1 : sa barre est à mi-hauteur, les trois autres restent pleines.</figcaption>
+        <img src="figs/fr/12-cercles-lecture.png" alt="Les cercles en lecture, le temps 1 en train de s'atténuer, sa barre à mi-hauteur">
+        <figcaption>Fig. 5 — En lecture, avec une atténuation sur le temps 1 : sa barre est à mi-hauteur, les trois autres restent pleines.</figcaption>
       </figure>
     </section>
 
@@ -142,8 +162,8 @@
       <p>Six sons au choix, tous fabriqués par le navigateur. Le bouton violet est le son actif ; un clic sur un
       autre bouton change le son immédiatement, même pendant la lecture.</p>
       <figure>
-        <img src="figs/03-timbres.png" alt="Les six boutons de timbre, Cloche sélectionnée">
-        <figcaption>Fig. 5 — Les six timbres. Ici, Cloche est le son actif.</figcaption>
+        <img src="figs/fr/03-timbres.png" alt="Les six boutons de timbre, Cloche sélectionnée">
+        <figcaption>Fig. 6 — Les six timbres. Ici, Cloche est le son actif.</figcaption>
       </figure>
       <ul>
         <li><strong>Métronome</strong> — le clic bois classique.</li>
@@ -163,8 +183,8 @@
       <p class="text-xs text-violet-400 tracking-widest uppercase mb-1">Chapitre 5</p>
       <h2>Le tempo</h2>
       <figure>
-        <img src="figs/04-tempo.png" alt="Le panneau Tempo, curseur et champ à 120 BPM">
-        <figcaption>Fig. 6 — Le panneau Tempo à 120 BPM. À droite, la durée d'une mesure et le numéro de la mesure en cours.</figcaption>
+        <img src="figs/fr/04-tempo.png" alt="Le panneau Tempo, curseur et champ à 120 BPM">
+        <figcaption>Fig. 7 — Le panneau Tempo à 120 BPM. À droite, la durée d'une mesure et le numéro de la mesure en cours.</figcaption>
       </figure>
       <ul>
         <li>Le <strong>curseur</strong> va de 40 à 300 BPM.</li>
@@ -184,8 +204,8 @@
       <p>Ce mode fait monter (ou descendre) le tempo tout seul, par paliers, pendant que tu joues.
       Il sert à travailler un passage de plus en plus vite sans toucher à l'écran.</p>
       <figure>
-        <img src="figs/05-acc-eteinte.png" alt="Le panneau Accélération, mode éteint">
-        <figcaption>Fig. 7 — Le panneau, mode éteint. Le bouton propose d'activer ; la ligne du bas dit « Mode ÉTEINT ».</figcaption>
+        <img src="figs/fr/05-acc-eteinte.png" alt="Le panneau Accélération, mode éteint">
+        <figcaption>Fig. 8 — Le panneau, mode éteint. Le bouton propose d'activer ; la ligne du bas dit « Mode ÉTEINT ».</figcaption>
       </figure>
       <h3>Le bouton et la ligne d'état</h3>
       <p>Le bouton dit toujours <strong>ce qu'il va faire</strong> : « Activer l'accélération » quand le mode est éteint,
@@ -201,12 +221,12 @@
       </ul>
       <p>Une valeur hors bornes est ramenée dans la borne dès que tu quittes le champ.</p>
       <figure>
-        <img src="figs/06-acc-allumee.png" alt="Le panneau Accélération allumé, à l'arrêt : départ 100, arrivée 130, toutes les 2 mesures, pas 10">
-        <figcaption>Fig. 8 — Mode allumé, à l'arrêt. La ligne d'état résume le programme : départ 100, monte de 10 BPM toutes les 2 mesures jusqu'à 130.</figcaption>
+        <img src="figs/fr/06-acc-allumee.png" alt="Le panneau Accélération allumé, à l'arrêt : départ 100, arrivée 130, toutes les 2 mesures, pas 10">
+        <figcaption>Fig. 9 — Mode allumé, à l'arrêt. La ligne d'état résume le programme : départ 100, monte de 10 BPM toutes les 2 mesures jusqu'à 130.</figcaption>
       </figure>
       <figure>
-        <img src="figs/06b-tempo-verrouille.png" alt="Le panneau Tempo grisé et verrouillé sur 100 pendant que l'accélération est allumée">
-        <figcaption>Fig. 9 — Quand le mode est allumé, le panneau Tempo se grise : il affiche le tempo courant, mais ne se règle plus à la main.</figcaption>
+        <img src="figs/fr/06b-tempo-verrouille.png" alt="Le panneau Tempo grisé et verrouillé sur 100 pendant que l'accélération est allumée">
+        <figcaption>Fig. 10 — Quand le mode est allumé, le panneau Tempo se grise : il affiche le tempo courant, mais ne se règle plus à la main.</figcaption>
       </figure>
       <h3>Ce qui se passe en lecture</h3>
       <ol>
@@ -216,16 +236,16 @@
         <li>Une fois l'arrivée atteinte, le tempo reste fixe tant que tu joues.</li>
       </ol>
       <figure>
-        <img src="figs/07-acc-palier.png" alt="En lecture : tempo 100, prochain palier dans 1 mesure">
-        <figcaption>Fig. 10 — En lecture, mesure 1 (la deuxième, le compteur part de 0) : la ligne d'état annonce le tempo courant et le prochain palier.</figcaption>
+        <img src="figs/fr/07-acc-palier.png" alt="En lecture : tempo 100, prochain palier dans 1 mesure">
+        <figcaption>Fig. 11 — En lecture, mesure 1 (la deuxième, le compteur part de 0) : la ligne d'état annonce le tempo courant et le prochain palier.</figcaption>
       </figure>
       <figure>
-        <img src="figs/08-acc-arrivee.png" alt="En lecture : tempo d'arrivée 130 atteint, il se maintient">
-        <figcaption>Fig. 11 — L'arrivée est atteinte : le tempo se maintient à 130.</figcaption>
+        <img src="figs/fr/08-acc-arrivee.png" alt="En lecture : tempo d'arrivée 130 atteint, il se maintient">
+        <figcaption>Fig. 12 — L'arrivée est atteinte : le tempo se maintient à 130.</figcaption>
       </figure>
       <figure>
-        <img src="figs/08b-tempo-arrivee.png" alt="Le panneau Tempo affiche 130 BPM, mesure 6">
-        <figcaption>Fig. 12 — Le panneau Tempo suit : 130 BPM, une mesure dure 1,85 s, on en est à la mesure 6.</figcaption>
+        <img src="figs/fr/08b-tempo-arrivee.png" alt="Le panneau Tempo affiche 130 BPM, mesure 6">
+        <figcaption>Fig. 13 — Le panneau Tempo suit : 130 BPM, une mesure dure 1,85 s, on en est à la mesure 6.</figcaption>
       </figure>
       <p><em>Exemple :</em> départ 100, arrivée 130, toutes les 2 mesures, pas 10. Les mesures 0 et 1 sont à 100,
       les mesures 2 et 3 à 110, les mesures 4 et 5 à 120, puis 130 à partir de la mesure 6.</p>
@@ -246,8 +266,8 @@
       <h2>L'atténuation par beat</h2>
       <p>C'est le cœur de FadeBeat. Chaque temps a sa carte, et chaque carte a deux curseurs, indépendants des autres cartes.</p>
       <figure>
-        <img src="figs/09-beat-carte.png" alt="La carte du Beat 1 : Durée fade 8, Début après 4">
-        <figcaption>Fig. 13 — La carte du temps 1, réglée sur Durée fade 8 et Début après 4.</figcaption>
+        <img src="figs/fr/09-beat-carte.png" alt="La carte du Beat 1 : Durée fade 8, Début après 4">
+        <figcaption>Fig. 14 — La carte du temps 1, réglée sur Durée fade 8 et Début après 4.</figcaption>
       </figure>
       <h3><span class="amber">Durée fade</span> — de 0 à 16 mesures</h3>
       <p>Combien de mesures dure la descente, du volume plein jusqu'au silence.</p>
@@ -263,8 +283,8 @@
         <li><code>8</code> : huit mesures pleines, puis la descente.</li>
       </ul>
       <figure>
-        <img src="figs/09b-attenuation.png" alt="Les quatre cartes d'atténuation, seule celle du Beat 1 est réglée">
-        <figcaption>Fig. 14 — Les quatre cartes. Seul le temps 1 est réglé ; les trois autres sonneront toujours à plein volume.</figcaption>
+        <img src="figs/fr/09b-attenuation.png" alt="Les quatre cartes d'atténuation, seule celle du Beat 1 est réglée">
+        <figcaption>Fig. 15 — Les quatre cartes. Seul le temps 1 est réglé ; les trois autres sonneront toujours à plein volume.</figcaption>
       </figure>
       <h3>Combien de temps ça dure, en secondes</h3>
       <p>Une mesure dure 240 divisé par le tempo, en secondes. À 120 BPM, une mesure fait 2 secondes ; une descente de
@@ -278,12 +298,12 @@
       <p class="text-xs text-violet-400 tracking-widest uppercase mb-1">Chapitre 8</p>
       <h2>Play, Stop, Reset et la touche Espace</h2>
       <figure>
-        <img src="figs/10-boutons-arret.png" alt="Le bouton Play violet et le bouton Reset atténuations, à l'arrêt">
-        <figcaption>Fig. 15 — À l'arrêt : le bouton Play, violet.</figcaption>
+        <img src="figs/fr/10-boutons-arret.png" alt="Le bouton Play violet et le bouton Reset atténuations, à l'arrêt">
+        <figcaption>Fig. 16 — À l'arrêt : le bouton Play, violet.</figcaption>
       </figure>
       <figure>
-        <img src="figs/11-boutons-lecture.png" alt="Le bouton Stop rouge pendant la lecture">
-        <figcaption>Fig. 16 — En lecture : le même bouton devient Stop, rouge.</figcaption>
+        <img src="figs/fr/11-boutons-lecture.png" alt="Le bouton Stop rouge pendant la lecture">
+        <figcaption>Fig. 17 — En lecture : le même bouton devient Stop, rouge.</figcaption>
       </figure>
       <ul>
         <li><strong class="b1">▶ Play</strong> démarre le métronome à la mesure 0. Le bouton devient <strong class="red">■ Stop</strong>.</li>
