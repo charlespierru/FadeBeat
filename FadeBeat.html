@@ -43,9 +43,25 @@
 <body class="text-gray-200 min-h-screen flex flex-col items-center py-10 px-4 gap-8">
 
   <!-- Header -->
-  <div class="text-center select-none">
+  <div id="entete" class="text-center select-none">
     <h1 class="text-4xl font-black tracking-[0.22em] text-white">FADE<span class="text-violet-400">BEAT</span></h1>
     <p class="text-xs text-gray-600 tracking-widest mt-1 uppercase">Entraînement Rythmique · Atténuation Progressive</p>
+    <!-- Notice (nouvel onglet). En haut depuis le 2026-09-12 (décision de Charles) :
+         elle était en bas de page, invisible sans défiler. Pastille (et non lien
+         souligné) depuis le 2026-09-12 : même famille visuelle que les boutons de
+         timbre. Texte gris-400 sur gray-900/60 = 7,5:1, au-dessus du seuil 4.5:1. -->
+    <a id="lnk-notice" href="notice/fr.html" target="_blank" rel="noopener"
+       title="Notice d'utilisation (nouvel onglet) · User manual (new tab)"
+       aria-label="Notice d'utilisation (nouvel onglet) · User manual (new tab)"
+       class="inline-flex items-center gap-2 mt-3 px-4 py-1.5 rounded-full border border-gray-800 bg-gray-900/60 text-gray-400 text-xs tracking-widest uppercase transition-all hover:text-violet-200 hover:border-violet-500 hover:shadow-[0_0_14px_2px_rgba(167,139,250,0.35)]">
+      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 6.5C10.5 5.2 8.6 4.6 6.5 4.6c-1 0-2 .13-2.9.4v13c.9-.27 1.9-.4 2.9-.4 2.1 0 4 .6 5.5 1.9"/>
+        <path d="M12 6.5c1.5-1.3 3.4-1.9 5.5-1.9 1 0 2 .13 2.9.4v13c-.9-.27-1.9-.4-2.9-.4-2.1 0-4 .6-5.5 1.9"/>
+        <path d="M12 6.5v13"/>
+      </svg>
+      <span>Notice · Manual</span>
+    </a>
   </div>
 
   <!-- Beat circles -->
@@ -363,17 +379,21 @@ function flash(i, v) {
     vb.style.opacity = v < 0.02 ? '0.15' : '0.9';
   }
 
-  // Auto-clear glow
+  // Auto-clear glow. borderColor revient à la couleur posée à la construction
+  // (`${c.bdr}44`), pas à '' : mesuré le 2026-09-12, '' effaçait le style inline
+  // et laissait le bord gris clair rgb(229,231,235) pendant la lecture.
   if (glowTimers[i]) clearTimeout(glowTimers[i]);
   glowTimers[i] = setTimeout(() => {
-    if (el) { el.style.boxShadow = ''; el.style.borderColor = ''; }
+    if (el) { el.style.boxShadow = ''; el.style.borderColor = c.bdr + '44'; }
   }, 370);
 }
 
 function resetCircles() {
   for (let i = 0; i < 4; i++) {
     const el = document.getElementById('bc'+i);
-    if (el) { el.classList.remove('beat-anim'); el.style.boxShadow=''; el.style.borderColor=''; }
+    // borderColor remis à la couleur d'origine, pas à '' (voir flash) : après Stop
+    // le bord doit retrouver ${bdr}44, pas le gris clair du navigateur.
+    if (el) { el.classList.remove('beat-anim'); el.style.boxShadow=''; el.style.borderColor=BC[i].bdr + '44'; }
     const vb = document.getElementById('vb'+i);
     if (vb) { vb.style.height='100%'; vb.style.background=BC[i].col; vb.style.opacity='0.35'; }
   }

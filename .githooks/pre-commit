@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+# Garde-fou de la notice FadeBeat (chantier #101, 2026-09-12).
+# Un commit qui modifie FadeBeat.html doit aussi modifier notice/fr.html ET
+# notice/en.html. Sinon il est refusé. Échappatoire explicite, pour un commit
+# sans effet visible pour l'utilisateur : NOTICE_INCHANGEE=1 git commit …
+# Activation : git config core.hooksPath .githooks
+set -u
+APP='FadeBeat.html'
+FR='notice/fr.html'
+EN='notice/en.html'
+
+# Fichiers de l'index avec leur statut (paths relatifs à la racine, renommages
+# non fusionnés : un renommage se lit D ancien + A nouveau).
+# Format -z : <statut>\0<chemin>\0… → une ligne « statut<TAB>chemin » par fichier.
+staged=''
+while IFS= read -r -d '' st && IFS= read -r -d '' p; do
+  staged+="$st"$'\t'"$p"$'\n'
+done < <(git diff --cached --name-status --no-renames -z)
+
+# statut <chemin> → A, M, D, T… ; vide si le fichier n'est pas dans le commit
+statut() { printf '%s' "$staged" | awk -F'\t' -v f="$1" '$2 == f { print $1; exit }'; }
+
+if [ -z "$(statut "$APP")" ]; then exit 0; fi
+
+# Une notice SUPPRIMÉE (statut D) n'est pas une notice mise à jour : elle MANQUE.
+# Corrigé le 2026-09-12 : `git rm notice/fr.html` comptait comme « touchée » et
+# laissait passer un commit qui modifiait l'appli en effaçant sa notice.
+#
+# Même chose pour une notice qui n'a plus rien d'une notice DANS L'INDEX :
+#   - blob VIDE (0 octet) : le chemin existe, la notice non ;
+#   - mode autre qu'un fichier ordinaire (120000 lien symbolique, 160000
+#     sous-module) : le fichier de notice a disparu, remplacé par un renvoi.
+# Corrigé le 2026-09-12, épreuve mesurée 68/71 → 71/71 : ces trois commits-là
+# passaient EN SILENCE (notice supprimée puis recréée à 0 octet avec l'autre
+# modifiée ; les deux recréées vides ; notice/fr.html remplacée par un lien
+# symbolique vers en.html). Le statut indexé valait M, A ou T — donc « touchée »
+# aux yeux de la version précédente, qui ne regardait ni la taille ni le mode.
+# On lit l'INDEX (et non le disque) : c'est ce qui part dans le commit, et pour
+# un commit partiel git pointe GIT_INDEX_FILE sur son index temporaire.
+manque=()
+for f in "$FR" "$EN"; do
+  case "$(statut "$f")" in
+    ''|D) manque+=("$f"); continue ;;
+  esac
+  # « <mode> <sha> <stage>\t<chemin> » ; vide si le chemin n'est pas dans l'index
+  case "$(git ls-files --stage -- "$f" | awk '{ print $1; exit }')" in
+    100644|100755) ;;                 # fichier ordinaire : le seul cas d'une vraie notice
+    *) manque+=("$f"); continue ;;    # 120000, 160000, ou absent
+  esac
+  if [ "$(git cat-file -s ":$f" 2>/dev/null || echo 0)" -eq 0 ]; then
+    manque+=("$f")
+  fi
+done
+
+if [ ${#manque[@]} -eq 0 ]; then exit 0; fi
+
+if [ "${NOTICE_INCHANGEE:-}" = "1" ]; then
+  echo "NOTICE NON MISE À JOUR : ce commit modifie $APP sans toucher ${manque[*]} (NOTICE_INCHANGEE=1 assumé)." >&2
+  exit 0
+fi
+
+echo "REFUS : ce commit modifie $APP mais pas ${manque[*]}." >&2
+echo "Toute fonctionnalité de FadeBeat doit être décrite dans les deux notices (FR et EN)." >&2
+echo "Mets à jour $FR et $EN (et leurs captures), ajoute-les à l'index, puis recommence." >&2
+echo "Commit sans effet visible pour l'utilisateur ? NOTICE_INCHANGEE=1 git commit … (assumé, tracé ici)." >&2
+exit 1

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FadeBeat – User manual</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html { scroll-behavior: smooth; font-size: 18px; }
+    body { background: #07070b; }
+    section.ch { scroll-margin-top: 5rem; }
+    .toc a { display: block; padding: .45rem .75rem; border-left: 3px solid transparent; border-radius: 0 .5rem .5rem 0; color: #9ca3af; line-height: 1.3; }
+    .toc a:hover { color: #e5e7eb; background: rgba(167,139,250,.08); }
+    .toc a.active { color: #c4b5fd; border-left-color: #a78bfa; background: rgba(167,139,250,.12); font-weight: 600; }
+    .toc .num { display: inline-block; width: 1.6rem; color: #6b7280; font-variant-numeric: tabular-nums; }
+    .toc a.active .num { color: #a78bfa; }
+    .prose p { margin: .7rem 0; line-height: 1.65; }
+    .prose ul, .prose ol { margin: .6rem 0 1rem 1.5rem; line-height: 1.6; }
+    .prose ul { list-style: disc; } .prose ol { list-style: decimal; }
+    .prose li { margin: .35rem 0; }
+    .prose h2 { font-size: 1.9rem; font-weight: 800; color: #fff; margin: 0 0 .25rem; letter-spacing: -.01em; }
+    .prose h3 { font-size: 1.25rem; font-weight: 700; color: #e5e7eb; margin: 1.6rem 0 .4rem; }
+    .prose strong { color: #f3f4f6; }
+    .prose code { background: #111827; border: 1px solid #1f2937; border-radius: .35rem; padding: .05em .4em; font-size: .92em; color: #c4b5fd; }
+    figure { margin: 1.2rem 0 1.6rem; }
+    figure img { display: block; max-width: 100%; height: auto; border: 1px solid #1f2937; border-radius: .9rem; background: #07070b; }
+    figcaption { color: #9ca3af; font-size: .9rem; margin-top: .5rem; line-height: 1.4; }
+    .note { border-left: 4px solid #a78bfa; background: rgba(109,40,217,.10); border-radius: 0 .75rem .75rem 0; padding: .8rem 1.1rem; margin: 1rem 0; }
+    .note p { margin: .25rem 0; }
+    .b1 { color: #a78bfa } .b2 { color: #fbbf24 } .b3 { color: #22d3ee } .b4 { color: #4ade80 }
+    .amber { color: #fbbf24 } .blue { color: #60a5fa } .green { color: #34d399 } .red { color: #f87171 }
+  </style>
+</head>
+<body class="text-gray-200 min-h-screen">
+
+<!-- Header -->
+<header class="border-b border-gray-800/70 bg-[#07070b]/90 backdrop-blur lg:sticky top-0 z-10">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center gap-4 flex-wrap">
+    <a href="../FadeBeat.html" class="text-2xl font-black tracking-[0.22em] text-white">FADE<span class="text-violet-400">BEAT</span></a>
+    <span class="text-xs text-gray-500 tracking-widest uppercase">User manual</span>
+    <span class="ml-auto flex items-center gap-3 text-sm">
+      <a href="../FadeBeat.html" class="text-gray-400 hover:text-gray-100 underline underline-offset-4">← The app</a>
+      <a id="lang" href="fr.html" hreflang="fr" class="px-3 py-1 rounded-full border border-gray-700 text-gray-300 hover:text-white hover:border-violet-400 transition-colors">Français</a>
+    </span>
+  </div>
+</header>
+
+<div class="max-w-6xl mx-auto px-4 py-8 lg:grid lg:grid-cols-[17rem_minmax(0,1fr)] lg:gap-12">
+
+  <!-- Table of contents -->
+  <aside class="lg:sticky lg:top-20 lg:self-start lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto mb-8 lg:mb-0">
+    <nav class="toc" aria-label="Contents">
+      <p class="text-xs text-gray-500 tracking-widest uppercase mb-3 px-3">Contents</p>
+      <a href="#ch-1"><span class="num">1</span>What FadeBeat is for</a>
+      <a href="#ch-2"><span class="num">2</span>The screen at a glance</a>
+      <a href="#ch-3"><span class="num">3</span>The four circles</a>
+      <a href="#ch-4"><span class="num">4</span>The sound</a>
+      <a href="#ch-5"><span class="num">5</span>The tempo</a>
+      <a href="#ch-6"><span class="num">6</span>Acceleration</a>
+      <a href="#ch-7"><span class="num">7</span>Fading each beat</a>
+      <a href="#ch-8"><span class="num">8</span>Play, Stop, Reset, Space</a>
+      <a href="#ch-9"><span class="num">9</span>Three exercises</a>
+      <a href="#ch-10"><span class="num">10</span>If something goes wrong</a>
+    </nav>
+  </aside>
+
+  <!-- Content -->
+  <main class="prose min-w-0">
+
+    <section class="ch" id="ch-1">
+      <p class="text-xs text-violet-400 tracking-widest uppercase mb-1">Chapter 1</p>
+      <h2>What FadeBeat is for</h2>
+      <p>FadeBeat is a practice metronome. It does what an ordinary metronome does not:
+      it <strong>gradually fades out</strong> one or more beats of the bar. The sound disappears,
+      and you keep going. That is how you internalise the pulse instead of leaning on the click.</p>
+      <p>The idea comes from Jamie Anderson's video <em>“The Free Rhythm Tool That'll Transform Your Groove!”</em>.</p>
+      <h3>How to open it</h3>
+      <ul>
+        <li><strong>Online:</strong> open FadeBeat's address in your browser. Nothing to install.</li>
+        <li><strong>Locally:</strong> double-click the file <code>FadeBeat.html</code>. The whole app lives in that single file.</li>
+      </ul>
+      <p>Checked in Chrome; designed to work in Firefox, Edge and Safari too (in Firefox the sliders may look
+      less colourful). It needs the internet for its styling
+      (the Tailwind library is loaded online) but no sound is ever downloaded: everything is generated by the browser.</p>
+      <p>This manual opens from the app itself: the <strong>« Notice · Manual »</strong> pill, marked with a small
+      open book, sits at the top, centred under the subtitle. It lights up violet when you hover over it.
+      One click opens the manual in a new tab, leaving the app exactly as it is.</p>
+      <figure>
+        <img src="figs/13-lien-notice.png" alt="The top of the app: the FADEBEAT title, the subtitle, and below them the « Notice · Manual » pill with its open-book icon">
+        <figcaption>Fig. 1 — The « Notice · Manual » pill, at the top of the app.</figcaption>
+      </figure>
+      <div class="note">
+        <p><strong>The bar always has 4 beats.</strong> FadeBeat offers no other time signature.</p>
+      </div>
+    </section>
+
+    <section class="ch mt-14 pt-10 border-t border-gray-800/70" id="ch-2">
+      <p class="text-xs text-violet-400 tracking-widest uppercase mb-1">Chapter 2</p>
+      <h2>The screen at a glance</h2>
+      <p>Everything fits on one page, top to bottom:</p>
+      <ol>
+        <li>The <strong>title</strong>, the subtitle and, just underneath, the <strong>« Notice · Manual » pill</strong> that opens this manual in a new tab.</li>
+        <li>The <strong>four circles</strong>, one per beat, each with its volume bar.</li>
+        <li>The choice of <strong>sound</strong> (six timbres).</li>
+        <li>The <strong>tempo</strong>, slider and BPM field.</li>
+        <li>The <strong>Acceleration</strong> panel.</li>
+        <li><strong>Fading per beat</strong>: one card per beat, two sliders each.</li>
+        <li>The <strong>Play</strong> and <strong>Reset atténuations</strong> (reset fades) buttons, then the reminder « Espace : play / stop ».</li>
+      </ol>
+      <figure>
+        <img src="figs/01-ecran.png" alt="The full FadeBeat screen, stopped, default settings">
+        <figcaption>Fig. 2 — The full screen, stopped, with the default settings: tempo 120, Métronome sound, no fading.</figcaption>
+      </figure>
+      <div class="note">
+        <p><strong>The app's labels are in French.</strong> This manual gives each one as it appears on screen, with its meaning.</p>
+      </div>
+    </section>
+
+    <section class="ch mt-14 pt-10 border-t border-gray-800/70" id="ch-3">
+      <p class="text-xs text-violet-400 tracking-widest uppercase mb-1">Chapter 3</p>
+      <h2>The four circles and the volume bars</h2>
+      <p>Each circle stands for one beat of the bar:
+      <span class="b1 font-bold">1</span> violet, the downbeat;
+      <span class="b2 font-bold">2</span> amber;
+      <span class="b3 font-bold">3</span> cyan;
+      <span class="b4 font-bold">4</span> green.</p>
+      <figure>
+        <img src="figs/02-cercles.png" alt="The four circles while stopped, volume bars full">
+        <figcaption>Fig. 3 — Stopped: the four circles are dark, the volume bars full but dim.</figcaption>
+      </figure>
+      <p>While playing, each circle <strong>pulses and lights up</strong> at the exact moment of its beat.
+      The louder the beat, the wider the glow. A beat that has gone silent no longer lights up: the circle
+      still pulses, but without light.</p>
+      <p>The <strong>vertical bar</strong> under each circle shows the volume at which that beat just sounded.
+      While a fade is running, the bar sinks bar after bar until it goes out.</p>
+      <figure>
+        <img src="figs/12-cercles-lecture.png" alt="The circles while playing, beat 1 fading, its bar at half height">
+        <figcaption>Fig. 4 — Playing, with a fade on beat 1: its bar is at half height, the other three stay full.</figcaption>
+      </figure>
+    </section>
+
+    <section class="ch mt-14 pt-10 border-t border-gray-800/70" id="ch-4">
+      <p class="text-xs text-violet-400 tracking-widest uppercase mb-1">Chapter 4</p>
+      <h2>The sound (« Timbre »)</h2>
+      <p>Six sounds to choose from, all generated by the browser. The violet button is the active sound; clicking
+      another button changes the sound at once, even while playing.</p>
+      <figure>
+        <img src="figs/03-timbres.png" alt="The six sound buttons, Cloche selected">
+        <figcaption>Fig. 5 — The six sounds. Here, Cloche (bell) is active.</figcaption>
+      </figure>
+      <ul>
+        <li><strong>Métronome</strong> — the classic wooden click.</li>
+        <li><strong>Cloche</strong> — a soft bell with a long ring.</li>
+        <li><strong>Woodblock</strong> — a dry, short strike.</li>
+        <li><strong>Hi-hat</strong> — closed hi-hat, very brief.</li>
+        <li><strong>Kick doux</strong> — a light, low bass drum.</li>
+        <li><strong>Sinus pur</strong> — a neutral electronic beep.</li>
+      </ul>
+      <p>Beat 1 is <strong>accented</strong> — higher and louder than the other three — with four of the six sounds:
+      <strong>Métronome</strong>, <strong>Cloche</strong>, <strong>Kick doux</strong> and <strong>Sinus pur</strong>.
+      <strong>Woodblock</strong> and <strong>Hi-hat</strong> have no accent: their four beats sound identical.
+      With those two, the downbeat is told by the eye (the violet circle), not by the ear.</p>
+    </section>
+
+    <section class="ch mt-14 pt-10 border-t border-gray-800/70" id="ch-5">
+      <p class="text-xs text-violet-400 tracking-widest uppercase mb-1">Chapter 5</p>
+      <h2>The tempo</h2>
+      <figure>
+        <img src="figs/04-tempo.png" alt="The Tempo panel, slider and field at 120 BPM">
+        <figcaption>Fig. 6 — The Tempo panel at 120 BPM. On the right, the length of one bar and the number of the bar being played.</figcaption>
+      </figure>
+      <ul>
+        <li>The <strong>slider</strong> goes from 40 to 300 BPM.</li>
+        <li>The <strong>field</strong> on the right takes a typed value, within the same limits. The slider follows the field;
+        by the time you leave the field, the two agree. A value <strong>outside the limits</strong> (below 40, above 300)
+        is ignored: the tempo does not move, and when you leave the field it goes back to the current tempo.</li>
+        <li>Under the slider: <strong>« 1 mesure = … s »</strong>, the length of one four-beat bar at the chosen tempo,
+        and <strong>« Mesure … »</strong>, the number of the bar being played. This counter starts at <strong>0</strong> and shows a dash when stopped.</li>
+      </ul>
+      <p>The tempo can be changed at any time, including while playing. When acceleration is on, this panel is
+      locked: it only displays, see the next chapter.</p>
+    </section>
+
+    <section class="ch mt-14 pt-10 border-t border-gray-800/70" id="ch-6">
+      <p class="text-xs text-violet-400 tracking-widest uppercase mb-1">Chapter 6</p>
+      <h2>Acceleration (« Accélération »)</h2>
+      <p>This mode raises (or lowers) the tempo by itself, in steps, while you play.
+      Use it to work a passage faster and faster without touching the screen.</p>
+      <figure>
+        <img src="figs/05-acc-eteinte.png" alt="The Acceleration panel, mode off">
+        <figcaption>Fig. 7 — The panel, mode off. The button offers to turn it on; the bottom line says « Mode ÉTEINT » (mode OFF).</figcaption>
+      </figure>
+      <h3>The button and the status line</h3>
+      <p>The button always says <strong>what it will do</strong>: « Activer l'accélération » (turn on) when the mode is off,
+      « Désactiver l'accélération » (turn off) when it is on. To know where you stand, read the <strong>status line</strong>
+      under the fields: it says « Mode ÉTEINT » (off) or « Mode ALLUMÉ » (on), and while playing it gives the current
+      tempo and the number of bars before the next step.</p>
+      <h3>The four settings</h3>
+      <ul>
+        <li><strong>Départ (BPM)</strong> — start, 40 to 300: the tempo when you press Play.</li>
+        <li><strong>Arrivée (BPM)</strong> — target, 40 to 300: the final tempo, where the metronome settles.</li>
+        <li><strong>Toutes les (mesures)</strong> — every N bars, 1 to 32: the length of one step.</li>
+        <li><strong>Pas (BPM)</strong> — step, 1 to 60: how much the tempo changes at each step.</li>
+      </ul>
+      <p>A value outside its limits is pulled back inside them as soon as you leave the field.</p>
+      <figure>
+        <img src="figs/06-acc-allumee.png" alt="The Acceleration panel on, stopped: start 100, target 130, every 2 bars, step 10">
+        <figcaption>Fig. 8 — Mode on, stopped. The status line sums up the programme: start 100, up 10 BPM every 2 bars until 130.</figcaption>
+      </figure>
+      <figure>
+        <img src="figs/06b-tempo-verrouille.png" alt="The Tempo panel greyed out and locked at 100 while acceleration is on">
+        <figcaption>Fig. 9 — With the mode on, the Tempo panel greys out: it shows the current tempo but can no longer be set by hand.</figcaption>
+      </figure>
+      <h3>What happens while playing</h3>
+      <ol>
+        <li>The metronome starts at the <strong>start</strong> tempo.</li>
+        <li>Every <em>m</em> bars, on the first beat, it changes by <em>n</em> BPM.</li>
+        <li>The last step is <strong>clipped</strong> to the target: it is never overshot.</li>
+        <li>Once the target is reached, the tempo stays fixed as long as you play.</li>
+      </ol>
+      <figure>
+        <img src="figs/07-acc-palier.png" alt="Playing: tempo 100, next step in 1 bar">
+        <figcaption>Fig. 10 — Playing, bar 1 (the second one — the counter starts at 0): the status line gives the current tempo and the next step (« tempo 100, prochain palier dans 1 mesure »).</figcaption>
+      </figure>
+      <figure>
+        <img src="figs/08-acc-arrivee.png" alt="Playing: target tempo 130 reached, holding">
+        <figcaption>Fig. 11 — The target is reached: the tempo holds at 130 (« tempo d'arrivée 130 atteint, il se maintient »).</figcaption>
+      </figure>
+      <figure>
+        <img src="figs/08b-tempo-arrivee.png" alt="The Tempo panel shows 130 BPM, bar 6">
+        <figcaption>Fig. 12 — The Tempo panel follows: 130 BPM, one bar lasts 1.85 s, we are at bar 6.</figcaption>
+      </figure>
+      <p><em>Example:</em> start 100, target 130, every 2 bars, step 10. Bars 0 and 1 run at 100,
+      bars 2 and 3 at 110, bars 4 and 5 at 120, then 130 from bar 6 on.</p>
+      <div class="note">
+        <p><strong>If the target is lower than the start</strong>, it is a slowdown: the tempo drops by <em>n</em> at each step.</p>
+        <p><strong>If start and target are equal</strong>, the status line says so: the tempo will not move.</p>
+      </div>
+      <h3>Good to know</h3>
+      <ul>
+        <li><strong>Stop</strong> puts the tempo back to the start value.</li>
+        <li>Turning the mode on or off <strong>while playing</strong> restarts the metronome at bar 0.</li>
+        <li>The fades of the next chapter always count in bars, whatever the current tempo.</li>
+      </ul>
+    </section>
+
+    <section class="ch mt-14 pt-10 border-t border-gray-800/70" id="ch-7">
+      <p class="text-xs text-violet-400 tracking-widest uppercase mb-1">Chapter 7</p>
+      <h2>Fading each beat (« Atténuation par beat »)</h2>
+      <p>This is the heart of FadeBeat. Each beat has its card, and each card has two sliders, independent of the other cards.</p>
+      <figure>
+        <img src="figs/09-beat-carte.png" alt="The Beat 1 card: Durée fade 8, Début après 4">
+        <figcaption>Fig. 13 — The card for beat 1, set to Durée fade 8 and Début après 4.</figcaption>
+      </figure>
+      <h3><span class="amber">Durée fade</span> (fade length) — 0 to 16 bars</h3>
+      <p>How many bars the descent takes, from full volume down to silence.</p>
+      <ul>
+        <li><code>0</code>: no fade, the beat always plays at full volume.</li>
+        <li><code>4</code>: the volume drops evenly over 4 bars, then silence.</li>
+        <li><code>16</code>: a very slow disappearance, over 16 bars.</li>
+      </ul>
+      <h3><span class="blue">Début après</span> (start after) — 0 to 16 bars</h3>
+      <p>How many bars this beat plays at full volume before the descent begins.</p>
+      <ul>
+        <li><code>0</code>: the descent starts from the very first bar.</li>
+        <li><code>8</code>: eight full bars, then the descent.</li>
+      </ul>
+      <figure>
+        <img src="figs/09b-attenuation.png" alt="The four fade cards, only Beat 1 is set">
+        <figcaption>Fig. 14 — The four cards. Only beat 1 is set; the other three will always play at full volume.</figcaption>
+      </figure>
+      <h3>How long that is, in seconds</h3>
+      <p>One bar lasts 240 divided by the tempo, in seconds. At 120 BPM a bar is 2 seconds, so a 4-bar fade
+      takes 8 seconds. The Tempo panel shows this bar length at all times.</p>
+      <div class="note">
+        <p><strong>The sliders act immediately</strong>, even while playing. The bar counter, though, only restarts from zero at the next Play.</p>
+      </div>
+    </section>
+
+    <section class="ch mt-14 pt-10 border-t border-gray-800/70" id="ch-8">
+      <p class="text-xs text-violet-400 tracking-widest uppercase mb-1">Chapter 8</p>
+      <h2>Play, Stop, Reset and the Space key</h2>
+      <figure>
+        <img src="figs/10-boutons-arret.png" alt="The violet Play button and the Reset fades button, stopped">
+        <figcaption>Fig. 15 — Stopped: the Play button, violet.</figcaption>
+      </figure>
+      <figure>
+        <img src="figs/11-boutons-lecture.png" alt="The red Stop button while playing">
+        <figcaption>Fig. 16 — Playing: the same button becomes Stop, red.</figcaption>
+      </figure>
+      <ul>
+        <li><strong class="b1">▶ Play</strong> starts the metronome at bar 0. The button becomes <strong class="red">■ Stop</strong>.</li>
+        <li><strong class="red">■ Stop</strong> stops everything, darkens the circles, refills the volume bars. If acceleration is on, the tempo goes back to the start value.</li>
+        <li><strong>↺ Reset atténuations</strong> (reset fades) puts all eight fade sliders back to 0. It touches neither the tempo, nor the sound, nor the acceleration.</li>
+        <li>The <strong>Space</strong> key does Play or Stop, as long as keyboard focus is neither on a button nor in a field.
+        <strong>On a button</strong>, Space presses that button: it does what the button says.
+        <strong>In a field</strong>, Space does nothing.
+        Click on an empty part of the page to give Space back its Play / Stop role.</li>
+      </ul>
+      <div class="note">
+        <p><strong>First Play with no sound?</strong> Browsers only allow audio after you have interacted with the page. A click on Play is enough; if you started from the keyboard, click once in the page.</p>
+      </div>
+    </section>
+
+    <section class="ch mt-14 pt-10 border-t border-gray-800/70" id="ch-9">
+      <p class="text-xs text-violet-400 tracking-widest uppercase mb-1">Chapter 9</p>
+      <h2>Three exercises</h2>
+      <h3>1. The downbeat vanishes</h3>
+      <p><em>Goal: keep the 1 in your head without hearing it.</em></p>
+      <ul>
+        <li>Beat 1: Durée fade <code>8</code>, Début après <code>4</code>.</li>
+        <li>The other three: <code>0</code>.</li>
+      </ul>
+      <p>The 1 plays four bars at full volume, then fades over eight bars. You must keep feeling it.</p>
+      <h3>2. The rhythmic skeleton</h3>
+      <p><em>Goal: internalise the weak beats.</em></p>
+      <ul>
+        <li>Beats 2 and 4: Durée fade <code>6</code>, Début après <code>0</code>.</li>
+        <li>Beats 1 and 3: <code>0</code>.</li>
+      </ul>
+      <p>The backbeat fades away little by little; only 1 and 3 remain.</p>
+      <h3>3. Total silence</h3>
+      <p><em>Goal: play alone, for a long time, with no reference.</em></p>
+      <ul>
+        <li>All four beats: Durée fade <code>16</code>, Début après <code>8</code>.</li>
+      </ul>
+      <p>Eight bars at full volume, then everything dies away slowly over sixteen bars. The circles keep pulsing:
+      compare what you play with what you see.</p>
+      <h3>And with acceleration</h3>
+      <p>Each exercise combines with chapter 6: fades count in bars, and the tempo can rise at the same time.</p>
+    </section>
+
+    <section class="ch mt-14 pt-10 border-t border-gray-800/70" id="ch-10">
+      <p class="text-xs text-violet-400 tracking-widest uppercase mb-1">Chapter 10</p>
+      <h2>If something goes wrong</h2>
+      <ul>
+        <li><strong>No sound</strong> → click once in the page, then Play. Also check that the browser has not muted the tab and that the system volume is not at zero.</li>
+        <li><strong>The tempo will not move</strong> → acceleration is on: the Tempo panel is greyed out and the status line says « Mode ALLUMÉ ». Click « Désactiver l'accélération ».</li>
+        <li><strong>A beat no longer sounds</strong> → its Durée fade is not 0 and its descent is over. Look at its volume bar; « Reset atténuations » brings everything back to full.</li>
+        <li><strong>Space does not do Play / Stop</strong> → keyboard focus is on a button (Space then presses that button instead of starting or stopping playback) or in a field (there, Space does nothing). Click on an empty part of the page to give Space back its Play / Stop role.</li>
+        <li><strong>The page has no colours or layout</strong> → no internet when it loaded. Reconnect and reload.</li>
+        <li><strong>The beat is uneven</strong> → a background tab is slowed down by the browser. Keep FadeBeat in the foreground.</li>
+      </ul>
+    </section>
+
+    <footer class="mt-16 pt-6 border-t border-gray-800/70 text-sm text-gray-500 flex flex-wrap gap-4 items-center">
+      <span>FadeBeat — manual updated on 12 September 2026.</span>
+      <a href="../FadeBeat.html" class="underline underline-offset-4 hover:text-gray-200">Back to the app</a>
+      <a id="lang2" href="fr.html" hreflang="fr" class="underline underline-offset-4 hover:text-gray-200">Lire cette notice en français</a>
+    </footer>
+  </main>
+</div>
+
+<script>
+// Language switch: keep the current chapter (same anchor in the other language)
+for (const id of ['lang','lang2']) {
+  const a = document.getElementById(id);
+  a.addEventListener('click', () => { a.href = a.getAttribute('href').split('#')[0] + location.hash; });
+}
+// Contents: highlight the visible chapter (scroll-spy)
+const links = [...document.querySelectorAll('.toc a')];
+const secs  = links.map(a => document.querySelector(a.getAttribute('href')));
+function spy() {
+  const y = window.scrollY + window.innerHeight * 0.3;
+  let cur = 0;
+  secs.forEach((s, i) => { if (s.offsetTop <= y) cur = i; });
+  links.forEach((a, i) => a.classList.toggle('active', i === cur));
+}
+addEventListener('scroll', spy, { passive: true }); addEventListener('load', spy); spy();
+</script>
+</body>
+</html>

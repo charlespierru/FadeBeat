@@ -50,7 +50,7 @@ Choisissez parmi 6 sons générés entièrement par Web Audio API :
 | **Kick doux** | Sinus avec pitch-drop | Grosse caisse légère, grave |
 | **Sinus pur** | Sinus 880 / 440 Hz | Bip électronique neutre |
 
-> Le beat 1 joue toujours une version accentuée (plus haute, plus forte) pour marquer le temps fort.
+> Le beat 1 joue une version accentuée (plus haute, plus forte) avec **Métronome**, **Cloche**, **Kick doux** et **Sinus pur**. **Woodblock** et **Hi-hat** n'ont pas de paramètre d'accent (`playWblk`, `playHhat`) : leurs quatre temps sonnent à l'identique, et le temps fort se repère alors à l'œil, sur le cercle violet.
 
 ---
 
@@ -170,10 +170,44 @@ Tous les beats s'estompent lentement sur 16 mesures après 8 mesures de plein vo
 
 ---
 
+## Notice d'utilisation
+
+La pastille **« Notice · Manual »** (icône de livre ouvert) en haut de l'application,
+centrée sous le sous-titre, ouvre la notice dans un nouvel onglet : sommaire à gauche,
+chapitres et captures à droite, en français (`notice/fr.html`) et en anglais (`notice/en.html`).
+
+La notice fait partie de chaque fonctionnalité : un commit qui modifie `FadeBeat.html`
+sans modifier les deux notices est refusé par le hook `.githooks/pre-commit`.
+Une notice **supprimée** compte comme manquante, pas comme mise à jour.
+À activer une fois par clone :
+
+```
+git config core.hooksPath .githooks
+```
+
+Le hook ne s'exécute que sur `git commit` : `git merge`, `git rebase`,
+`git cherry-pick` et `git commit --no-verify` le contournent sans rien dire — mettre
+à jour les deux notices reste alors une convention à respecter à la main.
+
+Les captures se régénèrent avec `node scripts/captures.mjs` (Chrome headless), la
+notice se vérifie avec `node scripts/verif-notice.mjs <dossier de sortie>`. Les deux
+scripts prennent puppeteer dans `/mnt/data/Charles/DevPerso/tonik/node_modules/` ;
+pour un autre chemin : `PUPPETEER_MODULES=/chemin/vers/node_modules node scripts/…`.
+
+---
+
 ## Fichiers
 
 ```
-FadeBeat.html   ← application complète (HTML + CSS + JS)
+FadeBeat.html          ← application complète (HTML + CSS + JS)
+notice/fr.html         ← notice en français
+notice/en.html         ← notice en anglais
+notice/figs/           ← captures d'écran de la notice
+scripts/captures.mjs   ← régénère les captures
+scripts/verif-notice.mjs ← vérification headless de la notice (FR et EN)
+.githooks/pre-commit   ← garde-fou : FadeBeat.html ⇒ les deux notices
+tests/epreuve-garde-notice.sh ← épreuve indépendante du garde-fou
+docs/notice-plan.md    ← plan du chantier notice
 ```
 
 ---

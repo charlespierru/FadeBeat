@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FadeBeat – Notice d'utilisation</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html { scroll-behavior: smooth; font-size: 18px; }
+    body { background: #07070b; }
+    section.ch { scroll-margin-top: 5rem; }
+    .toc a { display: block; padding: .45rem .75rem; border-left: 3px solid transparent; border-radius: 0 .5rem .5rem 0; color: #9ca3af; line-height: 1.3; }
+    .toc a:hover { color: #e5e7eb; background: rgba(167,139,250,.08); }
+    .toc a.active { color: #c4b5fd; border-left-color: #a78bfa; background: rgba(167,139,250,.12); font-weight: 600; }
+    .toc .num { display: inline-block; width: 1.6rem; color: #6b7280; font-variant-numeric: tabular-nums; }
+    .toc a.active .num { color: #a78bfa; }
+    .prose p { margin: .7rem 0; line-height: 1.65; }
+    .prose ul, .prose ol { margin: .6rem 0 1rem 1.5rem; line-height: 1.6; }
+    .prose ul { list-style: disc; } .prose ol { list-style: decimal; }
+    .prose li { margin: .35rem 0; }
+    .prose h2 { font-size: 1.9rem; font-weight: 800; color: #fff; margin: 0 0 .25rem; letter-spacing: -.01em; }
+    .prose h3 { font-size: 1.25rem; font-weight: 700; color: #e5e7eb; margin: 1.6rem 0 .4rem; }
+    .prose strong { color: #f3f4f6; }
+    .prose code { background: #111827; border: 1px solid #1f2937; border-radius: .35rem; padding: .05em .4em; font-size: .92em; color: #c4b5fd; }
+    figure { margin: 1.2rem 0 1.6rem; }
+    figure img { display: block; max-width: 100%; height: auto; border: 1px solid #1f2937; border-radius: .9rem; background: #07070b; }
+    figcaption { color: #9ca3af; font-size: .9rem; margin-top: .5rem; line-height: 1.4; }
+    .note { border-left: 4px solid #a78bfa; background: rgba(109,40,217,.10); border-radius: 0 .75rem .75rem 0; padding: .8rem 1.1rem; margin: 1rem 0; }
+    .note p { margin: .25rem 0; }
+    .b1 { color: #a78bfa } .b2 { color: #fbbf24 } .b3 { color: #22d3ee } .b4 { color: #4ade80 }
+    .amber { color: #fbbf24 } .blue { color: #60a5fa } .green { color: #34d399 } .red { color: #f87171 }
+  </style>
+</head>
+<body class="text-gray-200 min-h-screen">
+
+<!-- En-tête -->
+<header class="border-b border-gray-800/70 bg-[#07070b]/90 backdrop-blur lg:sticky top-0 z-10">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center gap-4 flex-wrap">
+    <a href="../FadeBeat.html" class="text-2xl font-black tracking-[0.22em] text-white">FADE<span class="text-violet-400">BEAT</span></a>
+    <span class="text-xs text-gray-500 tracking-widest uppercase">Notice d'utilisation</span>
+    <span class="ml-auto flex items-center gap-3 text-sm">
+      <a href="../FadeBeat.html" class="text-gray-400 hover:text-gray-100 underline underline-offset-4">← L'application</a>
+      <a id="lang" href="en.html" hreflang="en" class="px-3 py-1 rounded-full border border-gray-700 text-gray-300 hover:text-white hover:border-violet-400 transition-colors">English</a>
+    </span>
+  </div>
+</header>
+
+<div class="max-w-6xl mx-auto px-4 py-8 lg:grid lg:grid-cols-[17rem_minmax(0,1fr)] lg:gap-12">
+
+  <!-- Sommaire -->
+  <aside class="lg:sticky lg:top-20 lg:self-start lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto mb-8 lg:mb-0">
+    <nav class="toc" aria-label="Sommaire">
+      <p class="text-xs text-gray-500 tracking-widest uppercase mb-3 px-3">Sommaire</p>
+      <a href="#ch-1"><span class="num">1</span>À quoi sert FadeBeat</a>
+      <a href="#ch-2"><span class="num">2</span>L'écran d'un coup d'œil</a>
+      <a href="#ch-3"><span class="num">3</span>Les quatre cercles</a>
+      <a href="#ch-4"><span class="num">4</span>Le timbre</a>
+      <a href="#ch-5"><span class="num">5</span>Le tempo</a>
+      <a href="#ch-6"><span class="num">6</span>L'accélération</a>
+      <a href="#ch-7"><span class="num">7</span>L'atténuation par beat</a>
+      <a href="#ch-8"><span class="num">8</span>Play, Stop, Reset, Espace</a>
+      <a href="#ch-9"><span class="num">9</span>Trois exercices</a>
+      <a href="#ch-10"><span class="num">10</span>Si quelque chose cloche</a>
+    </nav>
+  </aside>
+
+  <!-- Contenu -->
+  <main class="prose min-w-0">
+
+    <section class="ch" id="ch-1">
+      <p class="text-xs text-violet-400 tracking-widest uppercase mb-1">Chapitre 1</p>
+      <h2>À quoi sert FadeBeat</h2>
+      <p>FadeBeat est un métronome d'entraînement. Il fait ce qu'un métronome ordinaire ne fait pas :
+      il <strong>fait disparaître peu à peu</strong> un ou plusieurs temps de la mesure. Le son s'efface,
+      et toi tu continues. C'est ainsi qu'on intériorise la pulsation, au lieu de s'appuyer sur le clic.</p>
+      <p>L'idée vient de la vidéo de Jamie Anderson, <em>« The Free Rhythm Tool That'll Transform Your Groove! »</em>.</p>
+      <h3>Comment l'ouvrir</h3>
+      <ul>
+        <li><strong>En ligne :</strong> ouvre l'adresse de FadeBeat dans ton navigateur. Rien à installer.</li>
+        <li><strong>En local :</strong> double-clique sur le fichier <code>FadeBeat.html</code>. L'application tient dans ce seul fichier.</li>
+      </ul>
+      <p>Vérifiée dans Chrome ; conçue pour marcher aussi dans Firefox, Edge et Safari (dans Firefox, les curseurs
+      peuvent être moins colorés). Elle a besoin d'internet pour sa mise en forme
+      (la bibliothèque Tailwind est chargée en ligne) mais aucun son n'est téléchargé : tout est fabriqué par le navigateur.</p>
+      <p>Cette notice s'ouvre depuis l'application elle-même : la pastille <strong>« Notice · Manual »</strong>,
+      marquée d'un petit livre ouvert, est en haut, centrée sous le sous-titre. Elle s'allume en violet au survol.
+      Un clic ouvre la notice dans un nouvel onglet, l'application reste où elle en est.</p>
+      <figure>
+        <img src="figs/13-lien-notice.png" alt="Le haut de l'application : le titre FADEBEAT, le sous-titre, et sous eux la pastille « Notice · Manual » avec son icône de livre ouvert">
+        <figcaption>Fig. 1 — La pastille « Notice · Manual », en haut de l'application.</figcaption>
+      </figure>
+      <div class="note">
+        <p><strong>La mesure est toujours à 4 temps.</strong> FadeBeat ne propose pas d'autre chiffrage.</p>
+      </div>
+    </section>
+
+    <section class="ch mt-14 pt-10 border-t border-gray-800/70" id="ch-2">
+      <p class="text-xs text-violet-400 tracking-widest uppercase mb-1">Chapitre 2</p>
+      <h2>L'écran d'un coup d'œil</h2>
+      <p>Tout tient sur une seule page, de haut en bas :</p>
+      <ol>
+        <li>Le <strong>titre</strong>, le sous-titre et, juste dessous, la <strong>pastille « Notice · Manual »</strong> qui ouvre cette notice dans un nouvel onglet.</li>
+        <li>Les <strong>quatre cercles</strong>, un par temps, avec leur barre de volume.</li>
+        <li>Le choix du <strong>timbre</strong> (six sons).</li>
+        <li>Le <strong>tempo</strong>, curseur et champ en BPM.</li>
+        <li>Le panneau <strong>Accélération</strong>.</li>
+        <li>L'<strong>atténuation par beat</strong> : une carte par temps, deux curseurs chacune.</li>
+        <li>Les boutons <strong>Play</strong> et <strong>Reset atténuations</strong>, puis le rappel « Espace : play / stop ».</li>
+      </ol>
+      <figure>
+        <img src="figs/01-ecran.png" alt="L'écran complet de FadeBeat à l'arrêt, réglages par défaut">
+        <figcaption>Fig. 2 — L'écran complet, à l'arrêt, avec les réglages de départ : tempo 120, timbre Métronome, aucune atténuation.</figcaption>
+      </figure>
+    </section>
+
+    <section class="ch mt-14 pt-10 border-t border-gray-800/70" id="ch-3">
+      <p class="text-xs text-violet-400 tracking-widest uppercase mb-1">Chapitre 3</p>
+      <h2>Les quatre cercles et les barres de volume</h2>
+      <p>Chaque cercle représente un temps de la mesure :
+      <span class="b1 font-bold">1</span> violet, le temps fort ;
+      <span class="b2 font-bold">2</span> ambre ;
+      <span class="b3 font-bold">3</span> cyan ;
+      <span class="b4 font-bold">4</span> vert.</p>
+      <figure>
+        <img src="figs/02-cercles.png" alt="Les quatre cercles à l'arrêt, barres de volume pleines">
+        <figcaption>Fig. 3 — À l'arrêt : les quatre cercles éteints, les barres de volume pleines mais pâles.</figcaption>
+      </figure>
+      <p>Pendant la lecture, le cercle <strong>pulse et s'illumine</strong> à l'instant exact de son temps.
+      Plus le temps est fort, plus le halo est large. Un temps devenu silencieux ne s'illumine plus : le cercle
+      bat encore, mais sans lumière.</p>
+      <p>La <strong>barre verticale</strong> sous chaque cercle montre le volume auquel ce temps vient de sonner.
+      Quand une atténuation est en cours, la barre descend mesure après mesure jusqu'à s'éteindre.</p>
+      <figure>
+        <img src="figs/12-cercles-lecture.png" alt="Les cercles en lecture, le temps 1 en train de s'atténuer, sa barre à mi-hauteur">
+        <figcaption>Fig. 4 — En lecture, avec une atténuation sur le temps 1 : sa barre est à mi-hauteur, les trois autres restent pleines.</figcaption>
+      </figure>
+    </section>
+
+    <section class="ch mt-14 pt-10 border-t border-gray-800/70" id="ch-4">
+      <p class="text-xs text-violet-400 tracking-widest uppercase mb-1">Chapitre 4</p>
+      <h2>Le timbre</h2>
+      <p>Six sons au choix, tous fabriqués par le navigateur. Le bouton violet est le son actif ; un clic sur un
+      autre bouton change le son immédiatement, même pendant la lecture.</p>
+      <figure>
+        <img src="figs/03-timbres.png" alt="Les six boutons de timbre, Cloche sélectionnée">
+        <figcaption>Fig. 5 — Les six timbres. Ici, Cloche est le son actif.</figcaption>
+      </figure>
+      <ul>
+        <li><strong>Métronome</strong> — le clic bois classique.</li>
+        <li><strong>Cloche</strong> — sonnerie douce, longue résonance.</li>
+        <li><strong>Woodblock</strong> — frappe sèche et courte.</li>
+        <li><strong>Hi-hat</strong> — charleston fermé, très bref.</li>
+        <li><strong>Kick doux</strong> — grosse caisse légère, grave.</li>
+        <li><strong>Sinus pur</strong> — bip électronique neutre.</li>
+      </ul>
+      <p>Le temps 1 est <strong>accentué</strong> — plus haut et plus fort que les trois autres — avec quatre timbres sur six :
+      <strong>Métronome</strong>, <strong>Cloche</strong>, <strong>Kick doux</strong> et <strong>Sinus pur</strong>.
+      <strong>Woodblock</strong> et <strong>Hi-hat</strong> n'ont pas d'accent : leurs quatre temps sonnent à l'identique.
+      Avec ces deux-là, le temps fort se repère à l'œil (le cercle violet), pas à l'oreille.</p>
+    </section>
+
+    <section class="ch mt-14 pt-10 border-t border-gray-800/70" id="ch-5">
+      <p class="text-xs text-violet-400 tracking-widest uppercase mb-1">Chapitre 5</p>
+      <h2>Le tempo</h2>
+      <figure>
+        <img src="figs/04-tempo.png" alt="Le panneau Tempo, curseur et champ à 120 BPM">
+        <figcaption>Fig. 6 — Le panneau Tempo à 120 BPM. À droite, la durée d'une mesure et le numéro de la mesure en cours.</figcaption>
+      </figure>
+      <ul>
+        <li>Le <strong>curseur</strong> va de 40 à 300 BPM.</li>
+        <li>Le <strong>champ</strong> à droite accepte une valeur tapée au clavier, dans les mêmes bornes. Le curseur suit le champ ;
+        au plus tard quand tu quittes le champ, les deux sont d'accord. Une valeur <strong>hors des bornes</strong> (moins de 40, plus de 300)
+        est ignorée : le tempo ne bouge pas, et en quittant le champ celui-ci revient au tempo courant.</li>
+        <li>Sous le curseur : <strong>« 1 mesure = … s »</strong>, la durée d'une mesure de quatre temps au tempo choisi,
+        et <strong>« Mesure … »</strong>, le numéro de la mesure en cours de lecture. Ce compteur part de <strong>0</strong> et affiche un tiret à l'arrêt.</li>
+      </ul>
+      <p>Le tempo se change à tout moment, y compris pendant la lecture. Quand l'accélération est allumée, ce panneau
+      est verrouillé : il ne fait plus qu'afficher, c'est le chapitre suivant.</p>
+    </section>
+
+    <section class="ch mt-14 pt-10 border-t border-gray-800/70" id="ch-6">
+      <p class="text-xs text-violet-400 tracking-widest uppercase mb-1">Chapitre 6</p>
+      <h2>L'accélération</h2>
+      <p>Ce mode fait monter (ou descendre) le tempo tout seul, par paliers, pendant que tu joues.
+      Il sert à travailler un passage de plus en plus vite sans toucher à l'écran.</p>
+      <figure>
+        <img src="figs/05-acc-eteinte.png" alt="Le panneau Accélération, mode éteint">
+        <figcaption>Fig. 7 — Le panneau, mode éteint. Le bouton propose d'activer ; la ligne du bas dit « Mode ÉTEINT ».</figcaption>
+      </figure>
+      <h3>Le bouton et la ligne d'état</h3>
+      <p>Le bouton dit toujours <strong>ce qu'il va faire</strong> : « Activer l'accélération » quand le mode est éteint,
+      « Désactiver l'accélération » quand il est allumé. Pour savoir où on en est, lis la <strong>ligne d'état</strong>
+      sous les champs : elle dit « Mode ÉTEINT » ou « Mode ALLUMÉ », et en lecture elle donne le tempo courant et
+      le nombre de mesures avant le prochain palier.</p>
+      <h3>Les quatre réglages</h3>
+      <ul>
+        <li><strong>Départ (BPM)</strong>, de 40 à 300 : le tempo au lancement.</li>
+        <li><strong>Arrivée (BPM)</strong>, de 40 à 300 : le tempo final, où le métronome se stabilise.</li>
+        <li><strong>Toutes les (mesures)</strong>, de 1 à 32 : la longueur d'un palier.</li>
+        <li><strong>Pas (BPM)</strong>, de 1 à 60 : de combien le tempo change à chaque palier.</li>
+      </ul>
+      <p>Une valeur hors bornes est ramenée dans la borne dès que tu quittes le champ.</p>
+      <figure>
+        <img src="figs/06-acc-allumee.png" alt="Le panneau Accélération allumé, à l'arrêt : départ 100, arrivée 130, toutes les 2 mesures, pas 10">
+        <figcaption>Fig. 8 — Mode allumé, à l'arrêt. La ligne d'état résume le programme : départ 100, monte de 10 BPM toutes les 2 mesures jusqu'à 130.</figcaption>
+      </figure>
+      <figure>
+        <img src="figs/06b-tempo-verrouille.png" alt="Le panneau Tempo grisé et verrouillé sur 100 pendant que l'accélération est allumée">
+        <figcaption>Fig. 9 — Quand le mode est allumé, le panneau Tempo se grise : il affiche le tempo courant, mais ne se règle plus à la main.</figcaption>
+      </figure>
+      <h3>Ce qui se passe en lecture</h3>
+      <ol>
+        <li>Le métronome démarre au tempo de <strong>départ</strong>.</li>
+        <li>Toutes les <em>m</em> mesures, au premier temps, il change de <em>n</em> BPM.</li>
+        <li>Le dernier palier est <strong>écrêté</strong> sur l'arrivée : on ne la dépasse jamais.</li>
+        <li>Une fois l'arrivée atteinte, le tempo reste fixe tant que tu joues.</li>
+      </ol>
+      <figure>
+        <img src="figs/07-acc-palier.png" alt="En lecture : tempo 100, prochain palier dans 1 mesure">
+        <figcaption>Fig. 10 — En lecture, mesure 1 (la deuxième, le compteur part de 0) : la ligne d'état annonce le tempo courant et le prochain palier.</figcaption>
+      </figure>
+      <figure>
+        <img src="figs/08-acc-arrivee.png" alt="En lecture : tempo d'arrivée 130 atteint, il se maintient">
+        <figcaption>Fig. 11 — L'arrivée est atteinte : le tempo se maintient à 130.</figcaption>
+      </figure>
+      <figure>
+        <img src="figs/08b-tempo-arrivee.png" alt="Le panneau Tempo affiche 130 BPM, mesure 6">
+        <figcaption>Fig. 12 — Le panneau Tempo suit : 130 BPM, une mesure dure 1,85 s, on en est à la mesure 6.</figcaption>
+      </figure>
+      <p><em>Exemple :</em> départ 100, arrivée 130, toutes les 2 mesures, pas 10. Les mesures 0 et 1 sont à 100,
+      les mesures 2 et 3 à 110, les mesures 4 et 5 à 120, puis 130 à partir de la mesure 6.</p>
+      <div class="note">
+        <p><strong>Si l'arrivée est plus basse que le départ</strong>, c'est un ralentissement : le tempo descend de <em>n</em> à chaque palier.</p>
+        <p><strong>Si départ et arrivée sont égaux</strong>, la ligne d'état le dit : le tempo ne bougera pas.</p>
+      </div>
+      <h3>Bon à savoir</h3>
+      <ul>
+        <li><strong>Stop</strong> remet le tempo de départ.</li>
+        <li>Activer ou désactiver le mode <strong>pendant la lecture</strong> redémarre le métronome à la mesure 0.</li>
+        <li>Les atténuations du chapitre suivant comptent toujours en mesures, quel que soit le tempo du moment.</li>
+      </ul>
+    </section>
+
+    <section class="ch mt-14 pt-10 border-t border-gray-800/70" id="ch-7">
+      <p class="text-xs text-violet-400 tracking-widest uppercase mb-1">Chapitre 7</p>
+      <h2>L'atténuation par beat</h2>
+      <p>C'est le cœur de FadeBeat. Chaque temps a sa carte, et chaque carte a deux curseurs, indépendants des autres cartes.</p>
+      <figure>
+        <img src="figs/09-beat-carte.png" alt="La carte du Beat 1 : Durée fade 8, Début après 4">
+        <figcaption>Fig. 13 — La carte du temps 1, réglée sur Durée fade 8 et Début après 4.</figcaption>
+      </figure>
+      <h3><span class="amber">Durée fade</span> — de 0 à 16 mesures</h3>
+      <p>Combien de mesures dure la descente, du volume plein jusqu'au silence.</p>
+      <ul>
+        <li><code>0</code> : pas d'atténuation, le temps sonne toujours à plein volume.</li>
+        <li><code>4</code> : le volume baisse régulièrement sur 4 mesures, puis silence.</li>
+        <li><code>16</code> : disparition très lente, sur 16 mesures.</li>
+      </ul>
+      <h3><span class="blue">Début après</span> — de 0 à 16 mesures</h3>
+      <p>Combien de mesures ce temps sonne à plein volume avant que la descente ne commence.</p>
+      <ul>
+        <li><code>0</code> : la descente commence dès la première mesure.</li>
+        <li><code>8</code> : huit mesures pleines, puis la descente.</li>
+      </ul>
+      <figure>
+        <img src="figs/09b-attenuation.png" alt="Les quatre cartes d'atténuation, seule celle du Beat 1 est réglée">
+        <figcaption>Fig. 14 — Les quatre cartes. Seul le temps 1 est réglé ; les trois autres sonneront toujours à plein volume.</figcaption>
+      </figure>
+      <h3>Combien de temps ça dure, en secondes</h3>
+      <p>Une mesure dure 240 divisé par le tempo, en secondes. À 120 BPM, une mesure fait 2 secondes ; une descente de
+      4 mesures dure donc 8 secondes. Le panneau Tempo affiche cette durée de mesure en permanence.</p>
+      <div class="note">
+        <p><strong>Les curseurs agissent tout de suite</strong>, même en lecture. Le compteur de mesures, lui, ne repart à zéro qu'au prochain Play.</p>
+      </div>
+    </section>
+
+    <section class="ch mt-14 pt-10 border-t border-gray-800/70" id="ch-8">
+      <p class="text-xs text-violet-400 tracking-widest uppercase mb-1">Chapitre 8</p>
+      <h2>Play, Stop, Reset et la touche Espace</h2>
+      <figure>
+        <img src="figs/10-boutons-arret.png" alt="Le bouton Play violet et le bouton Reset atténuations, à l'arrêt">
+        <figcaption>Fig. 15 — À l'arrêt : le bouton Play, violet.</figcaption>
+      </figure>
+      <figure>
+        <img src="figs/11-boutons-lecture.png" alt="Le bouton Stop rouge pendant la lecture">
+        <figcaption>Fig. 16 — En lecture : le même bouton devient Stop, rouge.</figcaption>
+      </figure>
+      <ul>
+        <li><strong class="b1">▶ Play</strong> démarre le métronome à la mesure 0. Le bouton devient <strong class="red">■ Stop</strong>.</li>
+        <li><strong class="red">■ Stop</strong> arrête tout, éteint les cercles, remet les barres de volume pleines. Si l'accélération est allumée, le tempo revient au départ.</li>
+        <li><strong>↺ Reset atténuations</strong> remet les huit curseurs d'atténuation à 0. Il ne touche ni au tempo, ni au timbre, ni à l'accélération.</li>
+        <li>La touche <strong>Espace</strong> fait Play ou Stop, tant que le curseur clavier n'est ni sur un bouton ni dans un champ.
+        <strong>Sur un bouton</strong>, Espace actionne ce bouton : il fait ce que le bouton annonce.
+        <strong>Dans un champ</strong>, Espace ne fait rien.
+        Clique dans le vide de la page pour rendre à Espace son rôle de Play / Stop.</li>
+      </ul>
+      <div class="note">
+        <p><strong>Premier Play sans son ?</strong> Les navigateurs n'autorisent le son qu'après un geste de ta part sur la page. Un clic sur Play suffit ; si tu as lancé au clavier, clique une fois dans la page.</p>
+      </div>
+    </section>
+
+    <section class="ch mt-14 pt-10 border-t border-gray-800/70" id="ch-9">
+      <p class="text-xs text-violet-400 tracking-widest uppercase mb-1">Chapitre 9</p>
+      <h2>Trois exercices</h2>
+      <h3>1. Le temps fort disparaît</h3>
+      <p><em>Travail : garder le 1 dans la tête sans l'entendre.</em></p>
+      <ul>
+        <li>Temps 1 : Durée fade <code>8</code>, Début après <code>4</code>.</li>
+        <li>Les trois autres : <code>0</code>.</li>
+      </ul>
+      <p>Le 1 sonne quatre mesures à plein volume, puis s'efface sur huit mesures. Tu dois continuer à le ressentir.</p>
+      <h3>2. Le squelette rythmique</h3>
+      <p><em>Travail : intérioriser les temps faibles.</em></p>
+      <ul>
+        <li>Temps 2 et 4 : Durée fade <code>6</code>, Début après <code>0</code>.</li>
+        <li>Temps 1 et 3 : <code>0</code>.</li>
+      </ul>
+      <p>Le contretemps disparaît peu à peu ; seuls le 1 et le 3 restent.</p>
+      <h3>3. Le silence total</h3>
+      <p><em>Travail : jouer seul, longtemps, sans repère.</em></p>
+      <ul>
+        <li>Les quatre temps : Durée fade <code>16</code>, Début après <code>8</code>.</li>
+      </ul>
+      <p>Huit mesures de plein volume, puis tout s'éteint lentement sur seize mesures. Les cercles continuent de battre :
+      compare ce que tu joues à ce que tu vois.</p>
+      <h3>Et avec l'accélération</h3>
+      <p>Chaque exercice se combine avec le chapitre 6 : les atténuations comptent en mesures, le tempo peut monter en même temps.</p>
+    </section>
+
+    <section class="ch mt-14 pt-10 border-t border-gray-800/70" id="ch-10">
+      <p class="text-xs text-violet-400 tracking-widest uppercase mb-1">Chapitre 10</p>
+      <h2>Si quelque chose cloche</h2>
+      <ul>
+        <li><strong>Pas de son</strong> → clique une fois dans la page, puis Play. Vérifie aussi que l'onglet n'est pas coupé par le navigateur et que le volume du système n'est pas à zéro.</li>
+        <li><strong>Le tempo refuse de bouger</strong> → l'accélération est allumée : le panneau Tempo est grisé et la ligne d'état dit « Mode ALLUMÉ ». Clique « Désactiver l'accélération ».</li>
+        <li><strong>Un temps ne sonne plus</strong> → sa Durée fade n'est pas à 0 et sa descente est finie. Regarde sa barre de volume ; « Reset atténuations » remet tout à plein.</li>
+        <li><strong>Espace ne fait pas Play / Stop</strong> → le curseur clavier est sur un bouton (Espace actionne alors ce bouton, au lieu de lancer ou d'arrêter la lecture) ou dans un champ (là, Espace ne fait rien). Clique dans le vide de la page pour rendre à Espace son rôle de Play / Stop.</li>
+        <li><strong>La page est sans couleurs ni mise en forme</strong> → pas d'internet au chargement. Reconnecte et recharge.</li>
+        <li><strong>Le rythme est irrégulier</strong> → un onglet en arrière-plan est ralenti par le navigateur. Garde FadeBeat au premier plan.</li>
+      </ul>
+    </section>
+
+    <footer class="mt-16 pt-6 border-t border-gray-800/70 text-sm text-gray-500 flex flex-wrap gap-4 items-center">
+      <span>FadeBeat — notice mise à jour le 12 septembre 2026.</span>
+      <a href="../FadeBeat.html" class="underline underline-offset-4 hover:text-gray-200">Retour à l'application</a>
+      <a id="lang2" href="en.html" hreflang="en" class="underline underline-offset-4 hover:text-gray-200">Read this manual in English</a>
+    </footer>
+  </main>
+</div>
+
+<script>
+// Bascule de langue : garder le chapitre en cours (même ancre dans l'autre langue)
+for (const id of ['lang','lang2']) {
+  const a = document.getElementById(id);
+  a.addEventListener('click', () => { a.href = a.getAttribute('href').split('#')[0] + location.hash; });
+}
+// Sommaire : surligner le chapitre visible (scroll-spy)
+const links = [...document.querySelectorAll('.toc a')];
+const secs  = links.map(a => document.querySelector(a.getAttribute('href')));
+function spy() {
+  const y = window.scrollY + window.innerHeight * 0.3;
+  let cur = 0;
+  secs.forEach((s, i) => { if (s.offsetTop <= y) cur = i; });
+  links.forEach((a, i) => a.classList.toggle('active', i === cur));
+}
+addEventListener('scroll', spy, { passive: true }); addEventListener('load', spy); spy();
+</script>
+</body>
+</html>
